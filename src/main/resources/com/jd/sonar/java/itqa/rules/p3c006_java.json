@@ -1,0 +1,16 @@
+{
+  "title": "Constant naming rule",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "naming", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-p3c006",
+  "sqKey": "p3c006",
+  "scope": "All"
+}

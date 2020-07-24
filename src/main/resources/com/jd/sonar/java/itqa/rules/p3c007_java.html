@@ -1,0 +1,20 @@
+<p>异常类命名使用 Exception 结尾。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+    class AException {}               // Noncompliant
+    class SException extends AException {}      // Noncompliant
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+    class BException extends NullPointerException {}
+    class CException extends UnknownException {}
+    class DException extends CException {}
+    class EException extends Exception {}
+    class ExceptionHandler {}
+    class CacheDemoException extends Exception {}
+</code>
+</pre>

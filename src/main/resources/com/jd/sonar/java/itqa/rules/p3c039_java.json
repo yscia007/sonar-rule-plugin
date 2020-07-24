@@ -1,0 +1,16 @@
+{
+  "title": "Avoid assigning any default value for Pojo class member.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "oop", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-039",
+  "sqKey": "p3c039",
+  "scope": "All"
+}

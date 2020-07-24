@@ -1,0 +1,16 @@
+{
+  "title": "All abstract methods (including those in the interface) must be annotated with Javadoc.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-044",
+  "sqKey": "p3c044",
+  "scope": "All"
+}

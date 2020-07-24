@@ -1,0 +1,16 @@
+{
+  "title": "'equals' method should be invoked by constant or object that not null",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "oop", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-013",
+  "sqKey": "p3c013",
+  "scope": "All"
+}

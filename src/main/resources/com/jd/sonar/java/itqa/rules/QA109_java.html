@@ -1,0 +1,67 @@
+<p>枚举类成员判断相等时使用"==",不要使用equals方法</p>
+<p>Testing equality of an enum value with equals is perfectly valid because an enum is an Object and every Java developer knows "==" should not be used to compare the content of an Object. At the same time, using "==" on enums:</p>
+
+<p>    - provides the same expected comparison (content) as equals</p>
+
+<p>    - is more null-safe than equals()</p>
+
+<p>    - provides compile-time (static) checking rather than runtime checking</p>
+
+<p>    For these reasons, use of "==" should be preferred to equals.</p>
+<h2>错误示例</h2>
+<pre>
+  <code>
+    package com.jd.sonar.test.file;
+    import com.jd.java.avoidEnumUseEqualCheck;
+    public class AvoidEnumUseEqualCheck {
+    public enum Fruit {
+        APPLE, BANANA, GRAPE
+    }
+
+    public boolean isFruitGrape(Fruit candidateFruit) {
+        if("".equals(Fruit.GRAPE)) { }                      // Noncompliant
+        if(Fruit.GRAPE.equals("")) { }                      // Noncompliant
+        if(equals(new A())) { }
+        return candidateFruit.equals(Fruit.GRAPE);          // Noncompliant {{Use "==" to perform this enum comparison instead of using "equals"}}
+    }
+
+    public boolean isFruitGrape(Cake candidateFruit) {
+        return candidateFruit.equals(Fruit.GRAPE);          // Noncompliant {{Use "==" to perform this enum comparison instead of using "equals"}}
+    }
+
+    public boolean objectIsObject(Object object) {
+        return object.equals(object);
+    }
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+    package com.jd.sonar.test.file;
+    import com.jd.java.avoidEnumUseEqualCheck;
+    public class AvoidEnumUseEqualCheck {
+    public enum Fruit {
+        APPLE, BANANA, GRAPE
+    }
+
+    public enum Cake {
+        LEMON_TART, CHEESE_CAKE
+        boolean foo(Object o) {
+            return equals(o);
+        }
+    }
+
+    public boolean isFruitGrape(Fruit candidateFruit) {
+        return candidateFruit == Fruit.GRAPE;
+    }
+
+    public boolean isFruitGrape(Cake candidateFruit) {
+        return candidateFruit == Fruit.GRAPE;
+    }
+    public boolean objectIsObject(Object object) {
+        return object.equals(object);
+    }
+}
+</code>
+</pre>

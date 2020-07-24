@@ -1,0 +1,16 @@
+{
+  "title": "Local variable naming should follow lowerCamelCase.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "naming", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-p3c031",
+  "sqKey": "p3c031",
+  "scope": "All"
+}

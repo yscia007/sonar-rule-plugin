@@ -1,0 +1,16 @@
+{
+  "title": "Avoid misuse Of Math Random.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "other", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-p3c050",
+  "sqKey": "p3c050",
+  "scope": "All"
+}

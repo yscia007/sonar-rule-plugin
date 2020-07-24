@@ -1,0 +1,124 @@
+<p>不能在finally块中使用return，finally块中的return返回后方法结束执行，不会再执行try块中的return语句。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+    class B {
+        private void f() {
+            try {
+                return;
+            } catch (Exception e) {
+                return;
+            } finally {
+                return;                   // Noncompliant
+            }
+            try {
+            } finally {
+                new Foo() {
+                    public void foo() {
+                        return;
+                    }
+                };
+            }
+            try {
+                return;
+            } finally {
+            }
+            try {
+            } finally {
+                try {
+                } catch (Exception e) {
+                    return;                // Noncompliant
+                }
+            }
+                try {
+                    return;
+                } catch (Exception e) {
+                    return;
+                } finally {
+                    continue;              // Noncompliant
+                }
+                try {
+                    return;
+                } catch (Exception e) {
+                    return;
+                } finally {
+                    break;                 // Noncompliant
+                }
+            try {
+                return;
+            } catch (Exception e) {
+                return;
+            } finally {
+                throw new Exception();     // Noncompliant
+            }
+        }
+    }
+  </code>
+</pre>
+<pre>
+    <code>
+     class FPs {
+        int i;
+        void f() {
+            try {
+            } finally {
+                switch (i) {
+                    case 1:
+                        break;
+                    case 2:
+                        return;             // Noncompliant
+                    case 3:
+                        throw new RuntimeException(); // Noncompliant
+                    default:
+                        break;
+                }
+                for (;;) {
+                    if (i > 0) continue;
+                    break;
+                    return;                // Noncompliant
+                    throw new RuntimeException(); // Noncompliant
+                }
+                while (true) {
+                    if (i > 0) continue;
+                    break;
+                    return;                 // Noncompliant
+                    throw new RuntimeException(); // Noncompliant
+                }
+                do {
+                    if (i > 0) continue;
+                    break;
+                    return;                 // Noncompliant
+                    throw new RuntimeException(); // Noncompliant
+                } while (true);
+            }
+        }
+        void g() {
+                try {
+                    throw new IllegalStateException();
+                } finally {
+                    continue;                // Noncompliant
+                    break;                   // Noncompliant
+                }
+        }
+        void fp() {
+            outer:
+                try {
+                    throw new IllegalStateException();
+                } finally {
+                    while (true) {
+                        continue outer;
+                        break;
+                    }
+                }
+        }
+    }
+    </code>
+</pre>
+
+<h2>正确示例</h2>
+<pre>
+<code>
+
+</code>
+</pre>

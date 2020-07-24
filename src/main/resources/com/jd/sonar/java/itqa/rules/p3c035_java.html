@@ -1,0 +1,11 @@
+<p>不允许任何魔法值(即未经预先定义的常量)直接出现在代码中。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+     if ("abcde".equals(key)) {}   // Noncompliant
+
+
+    String key = "abcde" + Id;   // Noncompliant
+  </code>
+</pre>

@@ -1,0 +1,9 @@
+<p>避免更改Spring的默认加载机制为：default-lazy-init="true"，这种方式的弊端是容易使一些项目启动阶段存在的问题要到运行阶段才能被发现。</p>
+<p>这些问题包括：接口没有配置、jar包jdk版本问题导致的无法初始化等等。</p>
+<p>应在Spring配置文件中关闭懒加载：default-lazy-init="false"</p>
+<h2>正确示例</h2>
+<pre>
+<code>
+    &lt;beans default-lazy-init='false'"&gt;
+</code>
+</pre>

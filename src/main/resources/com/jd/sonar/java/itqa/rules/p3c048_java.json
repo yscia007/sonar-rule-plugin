@@ -1,0 +1,16 @@
+{
+  "title": "Avoid declaring pattern and invoke compile within method block.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "other", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-048",
+  "sqKey": "p3c048",
+  "scope": "All"
+}

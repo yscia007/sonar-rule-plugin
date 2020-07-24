@@ -1,0 +1,16 @@
+{
+  "title": "Count the number of sql statement in mybatis mapper file.",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "sql", "itqa"
+  ],
+  "defaultSeverity": "Info",
+  "ruleSpecification": "RSPEC-128",
+  "sqKey": "QA129",
+  "scope": "All"
+}

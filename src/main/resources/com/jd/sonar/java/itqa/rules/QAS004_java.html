@@ -1,0 +1,23 @@
+<p>When both the key and value of Map are in demand, entrySet should be iterated.</p>
+<p>需要 Map 的主键和取值时，应该迭代 entrySet</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  <code>
+    Map<String,String> map =...;
+    for(String key:map.keySet){
+    String value =map.get(key);
+        ...
+    }
+  </code>
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  <code>
+    Map <String,String>map =...;
+    for(Map.Entry<String,String> entry :map.entrySet){
+        String key =entry.getKey;
+        String value =entry.getValue;
+        ...
+    }
+  </code>
+</pre>

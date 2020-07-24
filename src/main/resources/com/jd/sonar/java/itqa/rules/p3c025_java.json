@@ -1,0 +1,16 @@
+{
+  "title": "Avoid declaring SimpleDataFormat as a static variable",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-p3c025",
+  "sqKey": "p3c025",
+  "scope": "All"
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Return is forbidden within finally block.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "exception", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-012",
+  "sqKey": "p3c012",
+  "scope": "All"
+}

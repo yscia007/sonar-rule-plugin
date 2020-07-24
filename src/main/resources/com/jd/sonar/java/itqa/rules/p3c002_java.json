@@ -1,0 +1,16 @@
+{
+  "title": "A thread pool should be created by ThreadPoolExecutor rather than Executors",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-p3c002",
+  "sqKey": "p3c002",
+  "scope": "All"
+}

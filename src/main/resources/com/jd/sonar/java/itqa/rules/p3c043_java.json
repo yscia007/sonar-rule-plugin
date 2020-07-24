@@ -1,0 +1,16 @@
+{
+  "title": "Javadoc should be used for classes, class variables and methods.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "comment", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-p3c043",
+  "sqKey": "p3c043",
+  "scope": "All"
+}

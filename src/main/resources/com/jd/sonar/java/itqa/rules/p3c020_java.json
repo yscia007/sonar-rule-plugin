@@ -1,0 +1,16 @@
+{
+  "title": "The 'default' statement is necessary for switch expression.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "flowcontrol", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-020",
+  "sqKey": "p3c020",
+  "scope": "All"
+}

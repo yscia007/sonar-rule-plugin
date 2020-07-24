@@ -1,0 +1,27 @@
+<p>避免将synchronized锁加在方法上，而是加在方法内部需要同步的代码块上，这样可以避免同步覆盖多余的代码从而影响系统性能。</p>
+
+<h2>错误示例</h2>
+
+<pre>
+  <code>
+    public class A {
+        synchronized void    foo2(int value) { }  // Noncompliant
+        synchronized Object  foo4(int value) { return null; }  // Noncompliant
+    }
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+    <code>
+    public class B {
+        public void operate2() {
+            synchronized (name)  // Compliant
+            {
+                if (name.equals(""))  {
+                    name = "boonya";
+                }
+            }
+        }
+    }
+    </code>
+</pre>

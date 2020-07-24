@@ -1,0 +1,43 @@
+<p>使用工具类 Arrays.asList()把数组转换成集合时，不能使用其修改集合相关的方法，它的 add/remove/clear 方法会抛出 UnsupportedOperationException 异常。</p>
+<p>说明：asList 的返回对象是一个 Arrays 内部类，并没有实现集合的修改方法。Arrays.asList 体现的是适配器模式，只是转换接口，后台的数据仍是数组。</p>
+<pre>
+    <code>
+        String[] str = new String[] { "you", "wu" };
+        List list = Arrays.asList(str);
+    </code>
+</pre>
+<p>    第一种情况：list.add("yangguanbao"); 运行时异常。</p>
+<p>    第二种情况：str[0] = "gujin"; 那么 list.get(0)也会随之修改。</p>
+<h2>错误示例</h2>
+<pre>
+  <code>
+    public class Moo {
+        private void method1() {
+            if (true) {
+                List&ltString> list = Arrays.asList("a", "b", "c");
+                list.add("d");                  // Noncompliant
+                list.remove("22");              // Noncompliant
+                list.clear();                   // Noncompliant
+            }
+            List&ltString> list = new ArrayList&ltString>();
+            list.add("b");
+            list.remove("b");
+        }
+
+        private void method2() {
+            if (true) {
+                List&ltString> list = Arrays.asList("a", "b", "c");
+                list.add("d");                   // Noncompliant
+            }
+            List&ltString> list = new ArrayList&ltString>();
+            list.add("b");
+        }
+    }
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+
+</code>
+</pre>

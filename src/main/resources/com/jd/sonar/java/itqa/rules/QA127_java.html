@@ -1,0 +1,21 @@
+<p>Java原生态反序列化漏洞可以使攻击者通过构造恶意输入从而让反序列化产生非预期的对象，可导致任意命令执行。 </p>
+<h2>正确示例</h2>
+<p><strong>安全加固：</strong></p>
+<p>1）引入反序列化防护组件：</p>
+<pre>
+    <code>
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.jd.security.codesec&lt;/groupId&gt;
+            &lt;artifactId&gt;ajdv&lt;/artifactId&gt;
+            &lt;version>0.1&lt;/version&gt;
+        &lt;/dependency&gt;
+    </code>
+</pre>
+<p>2）默认情况下，在进行Java反序列化操作时，使用如下代码，就可以防止反序列化安全漏洞：</p>
+<pre>
+    <code>
+        ObjectInputStream ois = new JDSafeObjectInputStream(new FileInputStream("/tmp/xxx"));
+        Object obj = ois.readObject();
+    </code>
+</pre>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;详情请参考：<a href="http://cf.jd.com/pages/viewpage.action?pageId=100295069">JAVA反序列化漏洞防护组件使用</a></p>

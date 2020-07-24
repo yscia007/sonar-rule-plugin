@@ -1,0 +1,21 @@
+<p>ArrayList的subList结果不可强转成ArrayList，否则会抛出ClassCastException 异常，</p>
+<p>即 java.util.RandomAccessSubList cannot be cast to java.util.ArrayList.</p>
+<p>说明：subList 返回的是 ArrayList 的内部类 SubList，并不是 ArrayList ，而是ArrayList 的一个视图，对于 SubList 子列表的所有操作最终会反映到原列表上。</p>
+<h2>错误示例</h2>
+<pre>
+  <code>
+    public class Foo {
+            private void method(long aLong) {
+               List&ltString> list = new ArrayList&ltString>();
+               list.add("22");
+               List&ltString> test = (ArrayList&ltString>) list.subList(0, 1);   // Noncompliant
+             }
+        }
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+    <code>
+
+    </code>
+</pre>

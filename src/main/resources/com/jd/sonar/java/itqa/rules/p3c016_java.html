@@ -1,0 +1,40 @@
+<p>不要在foreach循环里进行元素的remove/add操作。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+   class Foo {
+    private void method() {
+        List<String> originList = new ArrayList<String>();
+        originList.add("22");
+        List<String> ff = new ArrayList<String>();
+        for (String item : originList) {
+            originList.add("bb");   // Noncompliant
+        }
+        originList.add("bb");
+    }
+
+    private void method(long aLong) {
+        List<String> originList = new ArrayList<String>();
+        originList.add("22");
+        for (String item : originList) {
+            originList.add("bb");      // Noncompliant
+            originList.remove("cc");   // Noncompliant
+            originList.clear();
+        }
+    }
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+    Iterator<String> iterator = list.iterator();
+    while (iterator.hasNext()) {
+    String item = iterator.next();
+    if (删除元素的条件) {
+       iterator.remove();
+     }
+   }
+</code>
+</pre>

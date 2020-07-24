@@ -1,0 +1,36 @@
+<p>类、类属性、类方法的注释必须使用 Javadoc 规范，使用/**内容*/格式，不得使用 // xxx 方式。</p>
+<p>说明：在 IDE 编辑窗口中，Javadoc 方式会提示相关注释，生成 Javadoc 可以正确输出相应注 释；</p>
+<p>在 IDE 中，工程调用方法时，不进入方法即可悬浮提示方法、参数、返回值的意义，提高 阅读效率。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+        // a comment                               // Noncompliant
+        public class CommentsMustBeJavadocFormat {
+            // a comment                           // Noncompliant
+            private String name;
+            // a comment                           // Noncompliant
+            public void getName() {}
+        }
+  </code>
+</pre>
+
+<h2>正确示例</h2>
+<pre>
+    <code>
+        /**
+         * test
+         */
+        public class CommentsMustBeJavadocFormat {
+            /**
+             * name
+             */
+            private String name;
+
+            /**
+             * return name
+             */
+            public void getName() {}
+        }
+    </code>
+</pre>

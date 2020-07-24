@@ -1,0 +1,12 @@
+{
+  "title": "Methods should not be too complex",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "complexity", "itqa"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-QAS001",
+  "sqKey": "QAS001",
+  "scope": "All"
+}

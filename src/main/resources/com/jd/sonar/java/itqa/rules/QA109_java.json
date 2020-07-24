@@ -1,0 +1,16 @@
+{
+  "title": "Enum values should be compared with \"==\"",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "enum", "itqa"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-109",
+  "sqKey": "QA109",
+  "scope": "All"
+}

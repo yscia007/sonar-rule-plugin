@@ -1,0 +1,32 @@
+<p>	定义 DO/DTO/VO 等 POJO 类时，不要设定任何属性默认值。</p>
+<p>反例：POJO 类的 gmtCreate 默认值为 new Date();但是这个属性在数据提取时并没有置入具体值，在更新其它字段时又附带更新了此字段，导致创建时间被修改成当前时间。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+        public class FooDO {
+            private static final String HELLO = "Hello";
+            private String tom = ""; 	      // Noncompliant
+            private String jerry;
+            private int pageSize = 20;	      // Noncompliant
+
+            public void bar() {
+                int pageNo = 1;
+            }
+
+            private static class NestedDTO {
+                private String tom = "";      // Noncompliant
+            }
+
+            private static class InnerClass {
+                private String tom = "";
+            }
+        }
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+
+</code>
+</pre>

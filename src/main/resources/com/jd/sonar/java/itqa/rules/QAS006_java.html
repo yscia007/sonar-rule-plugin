@@ -1,0 +1,24 @@
+<p>When contains method is called frequently, set should be used.</p>
+<p>频繁调用 Collection.contains 方法请使用 Set</p>
+<p>如何定义频繁调用?暂且认为在循环中使用.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  <code>
+    ArrayList<Integer> list = otherService.getList();
+    for (int i = 0; i <= Integer.MAX_VALUE; i++) {
+        // 时间复杂度 O(n)
+        list.contains(i);
+    }
+  </code>
+</pre>
+<h2>compliant Code Example</h2>
+<pre>
+  <code>
+    ArrayList<Integer> list = otherService.getList();
+    Set<Integer> set = new HashSet(list);
+        for (int i = 0; i <= Integer.MAX_VALUE; i++) {
+        // 时间复杂度 O(1)
+        set.contains(i);
+    }
+  </code>
+</pre>

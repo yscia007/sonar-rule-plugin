@@ -1,0 +1,33 @@
+<p>	在使用正则表达式时，利用好其预编译功能，可以有效加快正则匹配速度。 </p>
+<p><strong>说明：不要在方法体内定义：Pattern pattern = Pattern.compile(规则);</strong></p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+      import java.util.regex.Pattern;
+public class PatternCompileA {
+    public void getNumberPattern() {
+        // Avoid define Pattern.compile in method body
+        Pattern localPattern = Pattern.compile("[0-9]+");   // Noncompliant
+    }
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+import java.util.regex.Pattern;
+public class PatternCompile {
+    // precompile regex
+    private static Pattern NUMBER_PATTERN = Pattern.compile("[0-9]+");
+}
+
+
+public class PatternCompileC {
+    public void getNumberPattern(String number) {
+        // define Pattern.compile in method body
+        Pattern localPattern = Pattern.compile(number);
+    }
+}
+</code>
+</pre>

@@ -1,0 +1,16 @@
+{
+  "title": "Avoid using new Date().getTime() to get the current time.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "other", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-022",
+  "sqKey": "p3c022",
+  "scope": "All"
+}

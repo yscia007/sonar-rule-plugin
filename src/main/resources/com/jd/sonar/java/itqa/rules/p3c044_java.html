@@ -1,0 +1,123 @@
+<p>所有的抽象方法（包括接口中的方法）必须要用 Javadoc 注释、除了返回值、参数、 异常说明外，还必须指出该方法做什么事情，实现什么功能。</p>
+<p><strong>说明：对子类的实现要求，或者调用注意事项，请一并说明。</strong></p>
+<h2>错误示例</h2>
+<pre>
+  <code>
+public abstract class AbstractClassOrInterfaceMethodMustUseJavadoc {
+    public abstract String getName(String firstName, String secondName) throws XPathException, IOException;   // Noncompliant
+}
+
+      public abstract class AbstractClassOrInterfaceMethodMustUseJavadoc {
+    /**
+     */
+    public abstract String getName(String firstName, String secondName) throws XPathException, IOException;  // Noncompliant
+}
+
+      public interface AbstractClassOrInterfaceMethodMustUseJavadoc {
+    String getName(String firstName, String secondName) throws XPathException, IOException;    // Noncompliant
+}
+      public interface AbstractClassOrInterfaceMethodMustUseJavadoc {
+    /**
+     */
+    void getName();   // Noncompliant
+}
+      public interface AbstractClassOrInterfaceMethodMustUseJavadoc {
+    /**
+     */
+    String getName(String firstName, String secondName) throws XPathException, IOException;  // Noncompliant
+}
+      public interface InterfaceTest {
+    int test();        // Noncompliant
+
+    int test2();       // Noncompliant
+
+    public enum CmdbAttributeName {
+        schema("schema"), planId("planId");
+
+        private String prototype;
+
+        CmdbAttributeName(String prototype){
+            this.prototype = prototype;
+        }
+
+        public String getPrototype() {
+            return this.prototype;
+        }
+    }
+
+    public class InnerClass {
+        public void classTest() {
+        };
+    }
+
+
+    String getName(String username);  // Noncompliant
+}
+
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+public abstract class AbstractClassOrInterfaceMethodMustUseJavadoc {
+    public String getName(String firstName, String secondName) throws XPathException, IOException {
+        return "lalalala";
+    }
+}
+
+    public abstract class AbstractClassOrInterfaceMethodMustUseJavadoc {
+    /**
+     * only function comment.
+     */
+    public abstract void getFistName();
+
+    /**
+     * function comment
+     *
+     * @param firstName first name
+     * @param secondName second name
+     * @return full name
+     * @throws XPathException xpath exception
+     * @throws IOException IO exceptioin
+     */
+    public abstract String getName(String firstName, String secondName) throws XPathException, IOException;
+}
+
+    public interface AbstractClassOrInterfaceMethodMustUseJavadoc {
+    /**
+     * get user name
+     *
+     * @param firstName first name
+     * @param secondName second name
+     * @return full name
+     * @throws XPathException xpath exception
+     * @throws IOException io exception
+     */
+    String getName(String firstName, String secondName) throws XPathException, IOException;
+}
+
+
+public interface Stage {
+    /**
+     * test
+     */
+    void test();
+
+    /**
+     * Process Stage
+     *
+     * @param context context of responsibility chain
+     */
+    void process(PipeLineContext context);
+
+    /**
+     * whether this stage can be skipped, true by default.
+     * @return  boolean  can skip or not.
+     */
+    default boolean isCanSkip() {
+        return true;
+    }
+}
+
+</code>
+</pre>

@@ -1,0 +1,16 @@
+{
+  "title": "Do not remove/add elements in the foreach loop.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-016",
+  "sqKey": "p3c016",
+  "scope": "All"
+}

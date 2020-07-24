@@ -1,0 +1,10 @@
+<p>通过扫描spring配置文件获取Spring项目jsf配置文件中的jsf生产者接口</p>
+<h2>正确示例</h2>
+<p><strong>spring配置文件jsf生产者示例：</strong></p>
+<pre>
+    <code>
+        &lt;jsf:provider id="jsfPriceProService" interface="com.jd.project.server.JsfPriceProService"  alias="${proprice.jsf.alias}" ref="jsfPriceProServiceImpl" server="priceprojsf">
+        &lt;/jsf:provider>
+    </code>
+</pre>
+<p>上述配置文件中jsf生产者接口为：com.jd.project.server.JsfPriceProService</p>

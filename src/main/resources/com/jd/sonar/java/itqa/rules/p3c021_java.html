@@ -1,0 +1,43 @@
+<p>除常用方法（如 getXxx/isXxx）等外，不要在条件判断中执行其它复杂的语句，将复 杂逻辑判断的结果赋值给一个有意义的布尔变量名，以提高可读性。</p>
+<p><strong>说明：很多 if 语句内的逻辑相当复杂，阅读者需要分析条件表达式的最终结果，才能明确什么 样的条件执行什么样的语句，那么，如果阅读者分析逻辑表达式错误呢？ </strong></p>
+<p>正例： // 伪代码如下 final boolean existed = (file.open(fileName, "w") != null) && (...) || (...); if (existed) { ... } </p>
+<p>反例： if ((file.open(fileName, "w") != null) && (...) || (...)) { ... }</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+  public class Example {
+    public int fn1(int a, int b, int c) {
+        if (a == 0 || (b !=0 && c > 0)) {             // Noncompliant
+            return 1;
+        }
+        return 0;
+    }
+
+    public int fn2(int a, int b, int c) {
+        return (a == 0 || b != 0 && c > 0) ? 1 : 0;   // Noncompliant
+    }
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+public class Example {
+    public int fn3(int a, int b, int c) {
+        boolean flag = (a == 0 || b != 0 && c > 0);
+        return flag ? 1 : 0;
+    }
+}
+
+public class Example {
+    public int fn() {
+        List&ltInteger> ids = new ArrayList<>();
+        if (ids.size() > 0) {
+
+        }
+    }
+}
+
+</code>
+</pre>

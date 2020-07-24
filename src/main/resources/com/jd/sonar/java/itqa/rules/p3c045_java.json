@@ -1,0 +1,16 @@
+{
+  "title": "Author and creation date are necessary for all classes.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-045",
+  "sqKey": "p3c045",
+  "scope": "All"
+}

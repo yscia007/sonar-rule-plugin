@@ -1,0 +1,16 @@
+{
+  "title": "The Test class name begins with the name of the class it is testing and ends with Test.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-032",
+  "sqKey": "p3c032",
+  "scope": "All"
+}

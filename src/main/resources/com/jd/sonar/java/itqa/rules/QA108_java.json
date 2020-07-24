@@ -1,0 +1,16 @@
+{
+  "title": "Avoid using synchronized within for/do/while loop block.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "performance", "itqa"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-108",
+  "sqKey": "QA108",
+  "scope": "All"
+}

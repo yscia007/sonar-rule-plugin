@@ -1,0 +1,16 @@
+{
+  "title": "Avoid using undefined magic constant.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "constant", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-035",
+  "sqKey": "p3c035",
+  "scope": "All"
+}

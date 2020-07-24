@@ -1,0 +1,16 @@
+{
+  "title": "Track uses of insecure deserialization.",
+  "type": "VULNERABILITY",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "deserialization", "itqa"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-127",
+  "sqKey": "QA127",
+  "scope": "All"
+}

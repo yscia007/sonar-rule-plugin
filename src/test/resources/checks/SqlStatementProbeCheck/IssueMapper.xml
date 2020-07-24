@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jd.qdp.qdp_dao.AppMapper">
+    <resultMap id="appDomain" type="com.jd.qdp.domain.QdpApplication">
+        <result column="app_name" property="appName" jdbcType="VARCHAR" />
+        <result column="app_name_cn" property="appNameCN" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="sql" resultMap="appDomain"> <!-- Noncompliant -->
+        ${sql}
+    </select>
+    <select id="queryAll" resultMap="appDomain">
+        SELECT * FROM t_qdp_application
+    </select>
+
+    <select id="queryBySystemName" resultMap="appDomain">
+        SELECT * FROM t_qdp_application WHERE sys_name=${systemName}
+    </select>
+
+    <select id="queryByAppName" resultMap="appDomain">
+        SELECT * FROM t_qdp_application WHERE app_name=${appName}
+    </select>
+
+    <select id="query" resultMap="appDomain" parameterType="com.jd.qdp.domain.QdpApplication">
+        SELECT * FROM t_qdp_application
+        <where>
+            <if test="#{appName}!=null">
+                AND app_name=#{appName}
+            </if>
+        </where>
+    </select>
+
+    <!--根据参数获取文件分片哈希列表-->
+    <select id= "getFilePartHashListByParams" parameterType="map" resultType="FilePartHash">
+        SELECT
+        t.id id,
+        t.fileUuid fileUuid,
+        t.hexHashValue hexHashValue,
+        t.start start,
+        t.end end,
+        t.size size,
+        t.sortNum sortNum,
+        t.uploadTimes uploadTimes,
+        t.remark remark,
+        t.creationTime creationTime,
+        t.updateTime updateTime,
+        t.deleteTime deleteTime,
+        t.yn yn
+        FROM jd_disk_file_part_hash t
+        WHERE t.yn=1
+        <if test="id != null">and t.id = #{id}</if>
+        <if test="fileUuid != null and !fileUuid.isEmpty()">and t.fileUuid = #{fileUuid}</if>
+        <if test="hexHashValue != null and !hexHashValue.isEmpty()">and t.hexHashValue = #{hexHashValue}</if>
+        <if test="start != null">and t.start = #{start}</if>
+        <if test="end != null">and t.end = #{end}</if>
+        <if test="size != null">and t.size = #{size}</if>
+        <if test="sortNum != null">and t.sortNum = #{sortNum}</if>
+        <if test="uploadTimes != null">and t.uploadTimes = #{uploadTimes}</if>
+        <if test="remark != null and !remark.isEmpty()">and t.remark = #{remark}</if>
+        <if test="creationTime != null">and t.creationTime = #{creationTime}</if>
+        <if test="updateTime != null">and t.updateTime = #{updateTime}</if>
+        <if test="deleteTime != null">and t.deleteTime = #{deleteTime}</if>
+        <if test="yn != null">and t.yn = #{yn}</if>
+        ORDER BY
+        <if test="sortColumn != null and !sortColumn.isEmpty()">${sortColumn}</if>
+        <if test="sortColumn == null or sortColumn.isEmpty()">t.creationTime</if>
+        <if test="sortType != null and !sortType.isEmpty()">${sortType}</if>
+        <if test="sortType == null or sortType.isEmpty()">DESC</if>
+        <if test="pageStart!= null and pageSize!= null">
+            LIMIT ${pageStart},${pageSize}</if>
+    </select>
+    <select id="query" resultMap="appDomain">
+        ${intsersql}
+    </select>
+</mapper>

@@ -1,0 +1,16 @@
+{
+  "title": "Avoid modifying the size of list in subList scenario.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "set", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-014",
+  "sqKey": "p3c014",
+  "scope": "All"
+}

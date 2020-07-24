@@ -1,0 +1,12 @@
+{
+  "title": "When both the key and value of Map are in demand, entrySet should be iterated.",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "complexity", "itqa"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-QAS004",
+  "sqKey": "QAS004",
+  "scope": "All"
+}

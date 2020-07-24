@@ -1,0 +1,16 @@
+{
+  "title": "Do not cast subList in class ArrayList.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "set", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-p3c028",
+  "sqKey": "p3c028",
+  "scope": "All"
+}

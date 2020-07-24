@@ -1,0 +1,16 @@
+{
+  "title": "Avoid modifying the list after using Arrays.asList to convert array to list",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "set", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-018",
+  "sqKey": "p3c018",
+  "scope": "All"
+}

@@ -1,0 +1,68 @@
+<p>中括号是数组类型的一部分，数组定义如下：String[] args;</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+   class A {
+    public int getVector()[] { /* ... */ }    // Noncompliant
+
+    public int[] getVector() { /* ... */ }
+
+    public int[] getMatrix()[] { /* ... */ }  // Noncompliant
+
+    public int[][] getMatrix() { /* ... */ }
+
+    public int foo()[][][][] { /* ... */ }    // Noncompliant
+
+    public int
+    bar()[] { /* ... */ }                   // Noncompliant
+
+    public int
+    qix()
+            [] { /* ... */ }                        // Noncompliant
+
+    public int[]
+    goo() { /* ... */ }
+         }
+
+      interface B {
+    int foo()[];                              // Noncompliant
+    int[] bar();
+           }
+
+      public class ArrayTypeStyleTest{
+    private String array2[];      // Noncompliant
+    private String[] array1;
+    public void f(){
+        String[] array3;
+        String array4[];    // Noncompliant
+         }
+       }
+      public class ArrayTypeStyleTest2{
+    public void ConfParse(String str){
+        TreeMap&lt;String, String> mapConfKeyValue = new TreeMap<>();
+        String[] params = str.split("&");
+        for (String param : params) {
+            String fields[] = param.split("=");     // Noncompliant
+            if (fields.length != 2) {
+                continue;
+            }
+            String key = fields[0].trim();
+            String value = fields[1].trim();
+            mapConfKeyValue.put(key, value);
+        }
+    }
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+   public class ArrayTypeStyleTest1{
+    private String[] array1;
+    public void f(){
+        String[] array2;
+    }
+}
+</code>
+</pre>

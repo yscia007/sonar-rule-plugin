@@ -1,0 +1,16 @@
+{
+  "title": "All enum fields should have javadoc comments of description.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "comment", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-047",
+  "sqKey": "p3c047",
+  "scope": "All"
+}

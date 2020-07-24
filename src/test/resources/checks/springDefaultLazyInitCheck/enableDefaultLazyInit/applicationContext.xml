@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd http://www.springframework.org/schema/jee
+       http://www.springframework.org/schema/jee/spring-jee-3.0.xsd http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/jdbc
+       http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd" default-lazy-init="true" default-autowire="byName">  <!-- Noncompliant {{关闭Spring懒加载吧: <beans default-lazy-init='false'>}} -->
+
+    <description>Spring公共配置 </description>
+    <bean id="logExceptionAdvice"
+          class="com.jd.fms.settlement.common.struts.interceptor.JDExceptionLogAdvice">
+        <property name="logEnabled" value="true"></property>
+        <property name="logCategory" value="JD"></property>
+        <property name="logLevel" value="ERROR"></property>
+    </bean>
+
+
+    <!-- 定义受环境影响易变的变量-->
+    <!-- 只从捕获最顶端的异常，rest层和worker层，action由struts的拦截器捕获-->
+    <aop:config expose-proxy="true" proxy-target-class="true" >
+        <aop:aspect id="logging" ref="logExceptionAdvice">
+            <aop:pointcut id="exceptionLog"
+                          expression="within(com.jd.fms.settlement.application.rest..*)||execution(*
+		com.jd.fms.settlement.common.worker.MessageConsumer.*(..))||execution(*
+        com.jd.fms.settlement.application.worker.ExclusiveTask.*(..))"/> <aop:after-throwing
+                pointcut-ref="exceptionLog" method="afterThrowing" throwing="e"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean
+            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath*:/jdbc.properties</value>
+                <!-- 标准配置 -->
+                <value>classpath*:/application.properties</value>
+                <value>classpath*:/redis.properties</value>
+                <value>classpath*:/jmq.properties</value>
+                <value>classpath*:/sso.properties</value>
+            </list>
+        </property>
+        <property name="properties" ref="secApplicationProperties"/>
+    </bean>
+
+    <bean id ="secApplicationProperties" class="com.jd.security.configsec.spring.config.JDSecurityPropertyFactoryBean">
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="secLocation" value="classpath:important.properties"/>
+    </bean>
+
+    <!-- 数据源配置,使用应用服务器的数据库连接池 -->
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          autowire="byName">
+        <property name="driverClassName" value="${settlement.db.driver}" />
+        <property name="url" value="${settlement.db.url}" />
+        <property name="username" value="${settlement.db.username}" />
+        <property name="password" value="${settlement.db.password}" />
+        <property name="validationQuery" value="select 1 from dual" />
+        <property name="initialSize" value="2" />
+        <property name="maxActive" value="100" />
+        <property name="maxIdle" value="20" />
+        <property name="minIdle" value="2" />
+        <property name="maxWait" value="2000" />
+        <property name="logAbandoned" value="true" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <property name="timeBetweenEvictionRunsMillis" value="120000" />
+    </bean>
+
+    <!--<bean id="dataSourceSlave" class="org.apache.commons.dbcp.BasicDataSource"
+        autowire="byName">
+        <property name="driverClassName" value="${settlement.db.driver}" />
+        <property name="url" value="${settlement.db.slave.url}" />
+        <property name="username" value="${settlement.db.slave.username}" />
+        <property name="password" value="${settlement.db.slave.password}" />
+        <property name="validationQuery" value="select 1 from dual" />
+        <property name="initialSize" value="2" />
+        <property name="maxActive" value="100" />
+        <property name="maxIdle" value="20" />
+        <property name="minIdle" value="2" />
+        <property name="maxWait" value="2000" />
+        <property name="logAbandoned" value="true" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <property name="timeBetweenEvictionRunsMillis" value="120000" />
+    </bean>
+
+     <bean id="dataSourceTest" class="org.apache.commons.dbcp.BasicDataSource" autowire="byName">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/testdb_b"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="dataSource" class="com.jd.fms.settlement.common.dynamicDS.DynamicDataSource">
+
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry value-ref="dataSourceSlave" key="dataSourceSlave"></entry>
+                <entry value-ref="dataSourceTest" key="dataSourceTest"></entry>
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="dataSourceMaster">
+        </property>
+
+    </bean>
+    -->
+    <!-- 系统存活监控 -->
+    <bean class="com.jd.fms.settlement.common.UnifiedSettlementUmpMonitor" init-method="init"/>
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <!-- 当mybatis的xml文件和mapper接口不在相同包下时，需要用mapperLocations属性指定xml文件的路径。
+         *是个通配符，代表所有的文件，**代表所有目录下 -->
+        <property name="mapperLocations" value="classpath:/mappers/balance/**/*.xml" />
+    </bean>
+    <!-- SqlSessionTemplate保证了使用spring的当前事务 -->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+        <!-- <constructor-arg index="1" value="BATCH" /> -->
+    </bean>
+    <!-- 自动扫描 mapper 接口 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage"
+                  value="com.jd.fms.settlement.dao.settlement,com.jd.fms.settlement.dao.sys,com.jd.fms.settlement.dao.balance,com.jd.fms.settlement.dao.masterdata" />
+        <property name="sqlSessionTemplate" ref="sqlSession" />
+    </bean>
+    <!-- 自动扫描 Convertale Enum转换类，并注册 type handler -->
+    <bean
+            class="com.jd.fms.settlement.common.mybatis.ConvertableEnumTypeHandlerRegistry">
+        <property name="basePackages" value="com.jd.fms.settlement.domain" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+
+    <bean id="settleJDBCTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!-- 使用annotation定义事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"
+                          proxy-target-class="true" />
+    <import resource="spring/Application-service-beans.xml" />
+    <!-- <import resource="spring/Application-BankAccount.xml" />  -->
+    <import resource="spring/spring-sso-struts.xml"/>
+    <import resource="spring/Application-md.xml" />
+    <import resource="spring/Application-webservice.xml" />
+    <import resource="spring/Application-struts-beans.xml" />
+    <import resource="spring/Application-worker.xml" />
+    <import resource="spring/Application-fmsbase.xml" />
+    <import resource="spring/Application-HisFss.xml" />
+    <import resource="spring/Application-Oracle-Slave.xml" />
+    <import resource="spring/Application-saf.xml"/>
+    <import resource="spring/Application-yxftp.xml"/>
+    <import resource="spring/Application-webservice2.xml" />
+    <import resource="spring/spring-config-worker.xml" />
+    <import resource="spring/spring-JMQ-consumer.xml" />
+    <import resource="spring/spring-redis.xml" />
+    <import resource="spring/spring-elasticsearch.xml" />
+    <import resource="spring/spring-autodeploy-config.xml"/>
+    <import resource="bankUnTagReasonConfig.xml"/>
+
+    <bean class="com.jd.bk.common.util.application.ApplicationContextUtil" />
+    <bean id="springPropertiesUtil" class="com.jd.fms.settlement.common.util.SpringPropertiesUtil">
+        <property name="locations">
+            <list>
+                <value>classpath:application.properties</value>
+            </list>
+        </property>
+    </bean>
+</beans>

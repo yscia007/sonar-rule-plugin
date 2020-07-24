@@ -1,0 +1,16 @@
+{
+  "title": "Track uses of arbitrary sql command execution in mybatis.",
+  "type": "VULNERABILITY",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "sql", "itqa", "mybatis"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-126",
+  "sqKey": "QA126",
+  "scope": "All"
+}

@@ -1,0 +1,42 @@
+<p>关于基本数据类型与包装数据类型的使用标准如下：</p>
+<p>1） 【强制】所有的 POJO 类属性必须使用包装数据类型。</p>
+<p>2） 【强制】RPC 方法的返回值和参数必须使用包装数据类型。</p>
+<p>3） 【推荐】所有的局部变量使用基本数据类型。</p>
+<P><strong>说明：POJO 类属性没有初值是提醒使用者在需要使用时，必须自己显式地进行赋值，任何NPE 问题，或者入库检查，都由使用者来保证。</strong></P>
+<p>正例：数据库的查询结果可能是 null，因为自动拆箱，用基本数据类型接收有 NPE 风险。</p>
+<p>反例：比如显示成交总额涨跌情况，即正负 x%，x 为基本数据类型，调用的 RPC 服务，调用不成功时，返回的是默认值，页面显示为 0%，这是不合理的，应该显示成中划线。所以包装数据类型的 null 值，能够表示额外的信息，如：远程调用失败，异常退出。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+public class FooDO {
+
+    private boolean isBar;				// Noncompliant
+    private byte[] buffer;				// Noncompliant
+
+    private static class NestedDTO {
+        private String tom;
+        private boolean isBar;			// Noncompliant
+    }
+
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+public class FooDO {
+    private static final int age;
+    private String tom;
+    private Long pageSize = 20;
+
+    public void bar() {
+        int pageNo = 1;
+    }
+
+    private static class InnerClass {
+        private boolean isBar;
+    }
+}
+</code>
+</pre>

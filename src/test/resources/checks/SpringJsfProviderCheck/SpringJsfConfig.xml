@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jsf="http://jsf.jd.com/schema/jsf"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://jsf.jd.com/schema/jsf  http://jsf.jd.com/schema/jsf/jsf.xsd">
+    <!--update by langui，2018-07-09，把appliction-saf的接口挪过来，appliction-saf文件已经删掉-->
+    <bean id="receivedPaymentService" class="com.jd.fms.payplatform.service.impl.saf.PaymentServiceImp"/>
+    <bean id="bankCompanyWorkCallService" class="com.jd.fms.payplatform.service.impl.BankCompanyWorkCallServiceImp"/>
+    <bean id="bankWorkerService" class="com.jd.fms.payplatform.service.impl.saf.BankWorkerServiceImp">
+        <property name="bankCompanyWorkCallService">
+            <ref local="bankCompanyWorkCallService" />
+        </property>
+    </bean>
+    <bean id="common2CommonServiceImp" class="com.jd.fms.payplatform.service.impl.saf.Common2CommonServiceImp"/>
+    <bean id="updatePayingStatusServiceImp" class="com.jd.fms.payplatform.service.impl.saf.UpdatePayingStatusServiceImp"/>
+    <!-- 收付款单驳回接口,add by jinze 20141113 -->
+    <bean id="rejectServiceImp" class="com.jd.fms.payplatform.service.impl.saf.RejectServiceImp"/>
+    <!--结束-->
+    <bean id="erpServiceImpl" class="com.jd.fms.payplatform.service.impl.erp.ErpServiceImpl" >
+        <property name="appCode"  value="${erp.baseInfo.appCode}"/>
+        <property name="tokenKey" value="${erp.baseInfo.tokenKey}"/>
+    </bean>
+    <bean id="bankCompanyWorkCallServiceJsf" class="com.jd.fms.payplatform.service.impl.BankCompanyWorkCallServiceImp">
+        <property name="bankInfoIds" value="139,127,152"></property>
+    </bean>
+    <bean id="bankWorkerJsfService" class="com.jd.fms.payplatform.service.impl.saf.BankWorkerJsfServiceImp">
+        <property name="bankCompanyWorkCallService">
+            <ref local="bankCompanyWorkCallServiceJsf" />
+        </property>
+    </bean>
+    <bean id="paymentSCServiceImpl" class="com.jd.fms.payplatform.service.impl.saf.PaymentSCServiceImpl"/>
+    <bean id="CurrencyServiceForeignFaceImp" class="com.jd.fms.payplatform.service.impl.saf.CurrencyServiceForeignFaceImp"/>
+    <jsf:registry id="jsfRegistry" protocol="jsfRegistry" index="i.jsf.jd.com"/>
+    <jsf:server id="jsf" protocol="jsf"/>
+    <!--付款接口  给调拨用-->
+    <bean id="payApplyCompleteInfoService" class="com.jd.fms.payplatform.service.impl.saf.PayApplyCompleteInfoServiceImp" />
+    <jsf:provider id="payApplyCompServiceJsf" interface="com.jd.fms.payplatform.saf.service.PayApplyCompleteInfoService" alias="payplatform:0.0.1" ref="payApplyCompleteInfoService" server="jsf" ></jsf:provider><!-- Noncompliant{{gogogo}} -->
+    <!-- 主数据获取接口 -->
+    <jsf:consumer id="masterDataBaseDataService" interface="com.jd.md.masterData.jsf.service.MasterDataBaseDataService"
+                  protocol="jsf" alias="md_group:0.0.1" timeout="10000" >
+    </jsf:consumer>
+    <!-- 资金集中管理系统 -->
+    <jsf:consumer id="allocateJsfService" interface="com.jd.fms.fcM.rpc.jsf.service.AllocateJsfService"
+                  protocol="jsf" alias="fcm_group:0.0.1" timeout="10000" >
+    </jsf:consumer>
+    <bean id="addPaymentListFilter" class="com.jd.fms.payplatform.service.jsf.filter.AddPaymentListFilter" scope="prototype">
+        <property name="methodName" value="addPaymentApplyList" />
+    </bean>
+    <bean id="addPaymentAddressListFilter" class="com.jd.fms.payplatform.service.jsf.filter.AddPaymentAddressListFilter" scope="prototype">
+        <property name="methodName" value="addPayApplyOfAddressInfoList" />
+    </bean>
+    <bean id="addPayApplyOfForeignFilter" class="com.jd.fms.payplatform.service.jsf.filter.AddPayApplyOfForeignFilter" scope="prototype">
+        <property name="methodName" value="addPayApplyOfForeignCurrencyList" />
+    </bean>
+    <!-- 新增付款申请单 普通接口-->
+    <jsf:provider id="paymentServiceJsf" interface="com.jd.fms.payplatform.saf.service.PaymentService" alias="payplatform:0.0.1"
+                  ref="receivedPaymentService" server="jsf"  filter="addPaymentListFilter,addPayApplyOfForeignFilter" >
+        <jsf:parameter key="token" value="${saf.token}" hide="true"/>
+    </jsf:provider>
+    <bean id="paybankService" class="com.jd.fms.payplatform.service.impl.bank.PaybankServiceImpl"/>
+    <!-- 新增网银扣收申请单 -->
+    <jsf:provider id="paybankServiceJsf" interface="com.jd.fms.payplatform.saf.service.PaybankService" alias="payplatform:0.0.1"
+                  ref="paybankService" server="jsf"  >
+        <jsf:parameter key="token" value="payplatform" hide="true"/>
+    </jsf:provider>
+    <!-- 新增网银扣收申请单 delete by langui 2018-12-17 是郭欣用于测试的接口，删除 -->
+    <bean id="paybankAddService" class="com.jd.fms.payplatform.service.impl.bank.PayBankAddServiceImp"/>
+    <!--<jsf:provider id="paybankAddServiceJsf" interface="com.jd.fms.payplatform.saf.service.PayBankAddService" alias="payplatform:0.0.1"
+                  ref="paybankAddService" server="jsf"  >
+        <jsf:parameter key="token" value="payplatform" hide="true"/>
+    </jsf:provider>-->
+    <bean id="paybankPaymentService" class="com.jd.fms.payplatform.service.impl.bank.PaybankPaymentServiceImp"/>
+    <!-- 新增网银钱包转账申请单 -->
+    <jsf:provider id="paybankPaymentServiceJsf" interface="com.jd.fms.payplatform.saf.service.PaybankPaymentService" alias="payplatform:0.0.1"
+                  ref="paybankPaymentService" server="jsf"  >
+        <jsf:parameter key="token" value="${saf.token}" hide="true"/>
+    </jsf:provider>
+    <bean id="payUnionService" class="com.jd.fms.payplatform.service.impl.unionpay.PayUnionServiceImp"/>
+    <!-- 新增银联付款申请单 -->
+    <jsf:provider id="payUnionServiceJsf" interface="com.jd.fms.payplatform.saf.service.PayUnionService" alias="payplatform:0.0.1"
+                  ref="payUnionService" server="jsf"  >
+        <jsf:parameter key="token" value="${saf.token}" hide="true"/>
+    </jsf:provider>
+    <!--调用票据系统接口-->
+    <jsf:consumer id="billManageOutService" interface="com.jd.fm.billM.outapi.jsf.BillManageOutService"
+                  protocol="jsf" alias="bm_group:0.0.1" timeout="100000" retries="0">
+    </jsf:consumer>
+    <!-- 增加汇票接口 -->
+    <bean id="payplatformDraftService" class="com.jd.fms.payplatform.service.impl.saf.PayplatformDraftServiceImp" />
+    <jsf:provider id="payplatformDraftServiceJsf" interface="com.jd.fms.payplatform.saf.service.PayplatformDraftService" alias="payplatform:0.0.1"
+                  ref="payplatformDraftService" server="jsf" >
+    </jsf:provider>
+    <!-- 获取所有的计算系统，做下拉框 -->
+    <bean id="settSysInfoService" class="com.jd.fms.payplatform.service.impl.saf.SettSysInfoServiceImp" />
+    <jsf:provider id="settSysInfoServiceJsf" interface="com.jd.fms.payplatform.saf.service.SettSysInfoService" alias="payplatform:0.0.1"
+                  ref="settSysInfoService" server="jsf" >
+    </jsf:provider>
+    <!--获取erp 用户-->
+    <jsf:consumer id="hrUserService" interface="com.jd.official.omdm.is.hr.HrUserService"
+                  protocol="jsf" alias="${erp.jsf.group}" timeout="${erp.jsf.timeout}" retries="${erp.jsf.retries}">
+    </jsf:consumer>
+    <!-- 银企直连抓取数据和更新状态 -->
+    <jsf:provider id="bankWorkerServiceJsf" interface="com.jd.fms.payplatform.saf.service.BankWorkerJsfService"
+                  alias="payplatformJsf:0.0.1" ref="bankWorkerJsfService" server="jsf">
+    </jsf:provider>
+    <!--公对公确认接口-->
+    <jsf:provider id="paymentCommonServiceJsf" interface="com.jd.fms.payplatform.saf.service.PaymentCommonService"
+                  alias="payplatformJsf:0.0.1" ref="common2CommonServiceImp" server="jsf">
+    </jsf:provider>
+    <jsf:provider id="updatePayingStatusServiceJsf" interface="com.jd.fms.payplatform.saf.service.RequestUpdatePayingStatusService"
+                  alias="payplatformJsf:0.0.1" ref="updatePayingStatusServiceImp" server="jsf">
+    </jsf:provider>
+    <jsf:provider id="CurrencyServiceForeignFaceJsf" interface="com.jd.fms.payplatform.saf.service.CurrencyService"
+                  alias="payplatformJsf:0.0.1" ref="CurrencyServiceForeignFaceImp" server="jsf">
+    </jsf:provider>
+    <jsf:provider id="rejectServiceJsf" interface="com.jd.fms.payplatform.saf.service.RejectService"
+                  alias="payplatformJsf:0.0.1" ref="rejectServiceImp" server="jsf">
+    </jsf:provider>
+    <!-- 资金管理系统权限接口   -->
+    <jsf:consumer id="fundManageAuthorityJsfServiceInstance" interface="com.jd.fms.fundManage.saf.service.FundManageAuthorityJsfService"
+                  protocol="jsf" alias="fdm_jsf_group:0.0.1" timeout="5000" >
+        <jsf:parameter key="token" value="${saf.fundManage.token}" hide="true" />
+    </jsf:consumer>
+    <!--&lt;!&ndash; 九恒星jsf接口 &ndash;&gt;-->
+    <!--<jsf:consumer id="PaymentDataService" interface="com.jd.paymentdata.service.PaymentDataService"-->
+    <!--protocol="jsf" alias="PRMPNS:0.0.1" timeout="5000" >-->
+    <!--</jsf:consumer>-->
+    <!-- 渣打付款接口 -->
+    <jsf:provider id="paymentSCService" interface="com.jd.fms.payplatform.saf.service.PaymentSCService" alias="payplatform_scb_dev:0.0.1"
+                  ref="paymentSCServiceImpl" server="jsf" >
+        <jsf:parameter key="token" value="bjcwsc" hide="true" />
+    </jsf:provider>
+    <!-- 银企直联查询接口 -->
+    <jsf:consumer id="payplatformBcmJsf" interface="com.jd.bankcompany.ws.platform.PayplatformBcm"
+                  protocol="jsf" alias="payplatformBcm:0.0.1" timeout="5000" >
+    </jsf:consumer>
+    <!--ebs区域查询-->
+    <jsf:consumer id="apQueryService" interface="com.jd.ebs.esi.core.ap.ApQueryService"
+                  protocol="jsf" alias="esi.apQueryService" timeout="5000" retries="0">
+    </jsf:consumer>
+    <!-- Pop商家结算接口 -->
+    <jsf:consumer id="venderAccountService" interface="com.jd.fms.popsettlementj.jsf.commonvender.VenderAccountJsfService"
+                  protocol="jsf" alias="POP_VENDER_ACCOUNT"  timeout="5000" retries="0" >
+        <jsf:parameter key="token" value="${jsf.popVenderAccount.token}" hide="true"/>
+    </jsf:consumer>
+    <!-- 银行资金账 -->
+    <jsf:consumer id="bankAccountJsfService" interface="com.jd.settlement.jsf.service.BankAccountJsfService"
+                  alias="fms_sttlement_bank:0.0.1" protocol="jsf" timeout="10000"/>
+    <!-- 发送邮件接口 add by langui 2016-11-08-->
+    <jsf:consumer id="mailServer" interface="com.jd.cwbase.jsf.MailServerJsf"
+                  protocol="jsf" alias="report-email" timeout="10000" retries="5">
+    </jsf:consumer>
+    <!-- 银企直连工行接口   add by langui 2016-12-05-->
+    <jsf:consumer id="paymentService"
+                  interface="com.jd.fms.direct.jsf.service.PaymentService"
+                  protocol="jsf"
+                  alias="payplatform:0.0.1"
+                  timeout="5000">
+        <jsf:parameter key="token" value="${jsf.paymentService.token}" hide="true"/>
+    </jsf:consumer>
+    <!-- 主数据白名单接口   -->
+    <jsf:consumer id="whitelistService" interface="com.jd.md.masterData.jsf.service.WhitelistService"
+                  alias="whitelistService:0.0.1" protocol="jsf" timeout="10000" retries="0" >
+    </jsf:consumer>
+    <!-- 发票生成唯一ID接口   -->
+    <jsf:consumer id="invoiceTicketService" interface="com.jd.fms.ivc.service.jsf.invoice.InvoiceTicketJsfService"
+                  alias="INVOICE_TICKET" protocol="jsf" timeout="10000" retries="0" >
+    </jsf:consumer>
+    <!-- 银企直联网银收款jsf接口   -->
+    <jsf:consumer id="fmsRecordServiceJsf" interface="com.jd.fms.direct.jsf.service.FmsRecordServiceJsf"
+                  alias="direc_rec:0.0.1"  protocol="jsf" timeout="100000" retries="0" >
+        <jsf:parameter key="token" value="123456" hide="true" />
+    </jsf:consumer>
+    <!-- 银企直联银联付款jsf接口   -->
+    <jsf:consumer id="paymentCUPService" interface="com.jd.fms.direct.jsf.service.PaymentCUPService"
+                  alias="payplatform:0.0.1"  protocol="jsf" timeout="100000" retries="0" >
+        <jsf:parameter key="token" value="123456" hide="true" />
+    </jsf:consumer>
+    <!-- 主数据获取节假日jsf接口   -->
+    <jsf:consumer id="masterDataBaseOtherDataService" interface="com.jd.md.masterData.jsf.service.MasterDataBaseOtherDataService"
+                  alias="masterDataBaseOtherDataService:0.0.1"  protocol="jsf" timeout="100000" retries="0" >
+    </jsf:consumer>
+    <jsf:consumer id="esService" interface="com.jd.payplatform.es.jsf.service.EsService"
+                  alias="payplatform_0.0.1"  protocol="jsf" timeout="5000" retries="0" >
+    </jsf:consumer>
+    <!-- portal获取上级领导   -->
+    <jsf:consumer id="fundManageParentInfoService" interface="com.jd.fms.fundManage.saf.service.FundManageParentDataService"
+                  protocol="jsf" alias="fdm_jsf_group:0.0.1" timeout="5000" >
+    </jsf:consumer>
+</beans>

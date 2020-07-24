@@ -1,0 +1,16 @@
+{
+  "title": "Class naming should follow UpperCamelCase",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "naming", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-005",
+  "sqKey": "p3c005",
+  "scope": "All"
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Avoid using complex statements in conditional expression.",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "flowcontrol", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-021",
+  "sqKey": "p3c021",
+  "scope": "All"
+}

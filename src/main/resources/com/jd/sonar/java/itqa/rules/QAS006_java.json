@@ -1,0 +1,12 @@
+{
+  "title": "When contains method is called frequently, set should be used.",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "complexity", "itqa"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-QAS006",
+  "sqKey": "QAS006",
+  "scope": "All"
+}

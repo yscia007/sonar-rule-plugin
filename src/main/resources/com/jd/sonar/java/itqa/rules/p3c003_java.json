@@ -1,0 +1,16 @@
+{
+  "title": "Abstract class naming should begins with Abstract or Base",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "naming", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-003",
+  "sqKey": "p3c003",
+  "scope": "All"
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Escape characters in split should be paid special attention.",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "complexity", "itqa"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-QAS007",
+  "sqKey": "QAS007",
+  "scope": "All"
+}

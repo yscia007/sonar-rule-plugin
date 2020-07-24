@@ -1,0 +1,61 @@
+<p>避免 Random 实例被多线程使用，虽然共享该实例是线程安全的，但会因竞争同一 seed 导致的性能下降。</p>
+<p><strong>说明：Random 实例包括 java.util.Random 的实例或者 Math.random()的方式。</strong></p>
+<p>正例：在 JDK7 之后，可以直接使用 API ThreadLocalRandom，而在 JDK7 之前，需要编码保证每个线程持有一个实例。</p>
+<h2>错误示例</h2>
+<pre>
+  <code>
+import java.util.Random;
+
+public class RandomTest extends Thread {
+    private static final Random RANDOM = new Random();
+
+    private void test(){
+        RANDOM.nextBoolean();     // Noncompliant
+    }
+}
+
+      public class RandomTest extends Thread {       // Noncompliant
+    private static final Random RANDOM = new Random();
+
+    private void test(){
+        //RANDOM.nextBoolean();
+    }
+}
+
+
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+import java.util.Random;
+public class RandomTest extends Thread {
+    private static Random RANDOM = new Random();
+
+    private void test(){
+        RANDOM.nextBoolean();
+    }
+}
+
+public class RandomTest extends Thread {
+    private final Random RANDOM = new Random();
+
+    private void test(){
+        RANDOM.nextBoolean();
+    }
+}
+    public class MathRandomTest extends Thread {
+    private void test(){
+        double d = Math.random();
+    }
+}
+
+public class MathRandomTest extends Thread {
+    double d = Math.random();
+
+    private void test(){
+        //double d = Math.random();
+    }
+}
+</code>
+</pre>

@@ -1,0 +1,16 @@
+{
+  "title": "Pojo class should override toString method.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "oop", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-040",
+  "sqKey": "p3c040",
+  "scope": "All"
+}

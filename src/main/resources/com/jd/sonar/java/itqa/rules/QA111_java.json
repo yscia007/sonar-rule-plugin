@@ -1,0 +1,16 @@
+{
+  "title": "Control flow statements \"if\", \"for\", \"while\", \"switch\" and \"try\" should not be nested too deeply",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "flowcontrol", "itqa"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-111",
+  "sqKey": "QA111",
+  "scope": "All"
+}

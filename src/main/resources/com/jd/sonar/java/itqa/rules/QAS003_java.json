@@ -1,0 +1,12 @@
+{
+  "title": "collection empty should be detected by IsEmpty",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "complexity", "itqa"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-QAS003",
+  "sqKey": "QAS003",
+  "scope": "All"
+}

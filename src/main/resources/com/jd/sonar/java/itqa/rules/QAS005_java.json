@@ -1,0 +1,12 @@
+{
+  "title": "Don't pass collection as parameter to itself.",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "complexity", "itqa"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-QAS005",
+  "sqKey": "QAS005",
+  "scope": "All"
+}

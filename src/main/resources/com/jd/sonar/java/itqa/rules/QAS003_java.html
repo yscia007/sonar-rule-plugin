@@ -1,0 +1,18 @@
+<p>collection empty should be detected by IsEmpty</p>
+<p>collection.isEmpty相较于collection.size来对集合判空，效率更高</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  <code>
+    if (collection.size==0) {
+        ……
+    }
+  </code>
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+  <code>
+    if (collection.isEmpty) {
+        ……
+    }
+  </code>
+</pre>

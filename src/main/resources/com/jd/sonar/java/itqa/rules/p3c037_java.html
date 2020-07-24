@@ -1,0 +1,45 @@
+<p>所有的相同类型的包装类对象之间值的比较，全部使用 equals 方法比较。</p>
+<p>说明：对于 Integer var = ? 在-128 至 127 范围内的赋值，Integer 对象是在IntegerCache.cache 产生，会复用已有对象，</p>
+<p>这个区间内的 Integer 值可以直接使用==进行判断，但是这个区间之外的所有数据，都会在堆上产生，并不会复用已有对象，这是一个大坑，</p>
+<p>推荐使用 equals 方法进行判断。</p>
+<h2>错误示例</h2>
+<pre>
+  <code>
+    public class Foo {
+		private static final int x = 3;
+	    public void bar() {
+	    	Integer a = 2;
+	    	int b = 2;
+	    	Integer c = 3;
+
+	    	if (a == b) {	// OK
+	    		// do nothing
+	    	}
+	    	if (a == c) {	// Noncompliant
+	    		// do nothing
+	    	}
+	    	if (a == Integer.MAX_VALUE) {	// Noncompliant
+	    		// do nothing
+	    	}
+
+	    	if (a == Inner.FLAG) {     // Noncompliant
+	    		// do nothing
+	    	}
+
+	    	if (a == new Integer("2")) {	// Noncompliant
+	    		// do nothing
+	    	}
+	    }
+
+	    private static class Inner {
+	    	public static final Integer FLAG = 3;
+	    }
+	}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+    <code>
+
+    </code>
+</pre>

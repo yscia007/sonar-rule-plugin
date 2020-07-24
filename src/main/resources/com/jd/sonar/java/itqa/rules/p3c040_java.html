@@ -1,0 +1,77 @@
+<p>POJO 类必须写 toString 方法。使用 IDE 的中工具：source> generate toString时，如果继承了另一个 POJO 类，注意在前面加一下 super.toString。</p>
+<p><strong>说明：在方法执行抛出异常时，可以直接调用 POJO 的 toString()方法打印其属性值，便于排查问题。</strong></p>
+<h2>错误示例</h2>
+<pre>
+  <code>
+import lombok.*;
+public class FooDO {
+    private String tom;
+
+    // BAD, not Override toString()
+
+    private static class NestedDTO {
+        private String tom;
+        private boolean isBar;
+
+        @Override
+        public String tostring() {		 // Noncompliant
+            return tom;
+        }
+    }
+
+    private static class InnerClass {
+        // OK
+    }
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+public class FooDO {
+    private String tom;
+
+    @Override
+    public String toString() {
+        return tom;
+    }
+
+    private static class NestedDTO {
+        private String tom;
+        private boolean isBar;
+
+        @Override
+        public String toString() {
+            return super.toString();
+        }
+    }
+
+    private static class InnerClass {
+        // OK
+    }
+}
+
+@Data
+public class FooDO {
+    private String tom;
+}
+
+@lombok.Data
+public class FooDO {
+    private String tom;
+}
+
+@Data
+public class FooDO {
+    private String tom;
+}
+
+@ToString(callSuper = true)
+public class FooDO {
+    private String tom;
+}
+
+public interface FooDO {
+}
+</code>
+</pre>

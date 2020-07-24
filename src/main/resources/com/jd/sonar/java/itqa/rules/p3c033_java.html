@@ -1,0 +1,32 @@
+<p>POJO 类中布尔类型的变量，都不要加 is，否则部分框架解析会引起序列化错误。</p>
+<p>反例：定义为基本数据类型 Boolean isDeleted；的属性，它的方法也是 isDeleted()，RPC框架在反向解析的时候，“以为”对应的属性名称是 deleted，导致属性获取不到，进而抛出异常。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+public class BooleanPropertyNamingRuleTestDO{
+    private boolean issuccess;          // Noncompliant
+    private boolean issuccess1;         // Noncompliant
+    private boolean success;
+    public void sayHello (int i) {
+        boolean issuccess1;
+        boolean success1;
+    }
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+public class BooleanPropertyNamingRuleTest{
+    private boolean success;
+    public void sayHello (int i) {
+        boolean success1;
+    }
+}
+
+public class ProcessBuilder {
+    public static final boolean isWindows = isWindows();
+}
+</code>
+</pre>

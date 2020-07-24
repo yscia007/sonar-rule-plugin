@@ -1,0 +1,17 @@
+<p>避免在for/do/while循环语句中调用synchronized(同步)方法，对系统性能影响较大。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+      class A {
+        public synchronized void f1(){}
+        public void f2(){}
+        public void f3() {
+            for (int i = 0; i < 10; i++) {
+                f1();   // Noncompliant
+                f3();
+            }
+        }
+      }
+  </code>
+</pre>

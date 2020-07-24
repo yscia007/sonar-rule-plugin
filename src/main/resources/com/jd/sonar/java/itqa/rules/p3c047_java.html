@@ -1,0 +1,35 @@
+<p>	所有的枚举类型字段必须要有注释，说明每个数据项的用途。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+public enum DataBaseType
+{
+    MYSQL,// Noncompliant
+
+    /**
+     *
+     */
+    ORACLE,// Noncompliant
+
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+
+public enum DataBaseType
+{
+    /**
+     * di er ge can shu
+     */
+    DB2,
+
+    /**
+     * di san ge can shu
+     */
+    SQLSERVER
+}
+</code>
+</pre>

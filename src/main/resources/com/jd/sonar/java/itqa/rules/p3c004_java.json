@@ -1,0 +1,16 @@
+{
+  "title": "Avoid naming begin or end with an underscore or dollar sign.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "naming", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-004",
+  "sqKey": "p3c004",
+  "scope": "All"
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Spring default lazy init check",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "spring", "itqa", "xml"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-112",
+  "sqKey": "QA112",
+  "scope": "All"
+}

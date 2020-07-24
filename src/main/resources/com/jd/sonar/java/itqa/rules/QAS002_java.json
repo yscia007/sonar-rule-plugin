@@ -1,0 +1,12 @@
+{
+  "title": "Cognitive Complexity of methods should not be too high",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "complexity", "itqa"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-QAS002",
+  "sqKey": "QAS002",
+  "scope": "All"
+}

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jd.qdp.qdp_dao.AppMapper">
+    <resultMap id="appDomain" type="com.jd.qdp.domain.QdpApplication">
+        <result column="app_name" property="appName" jdbcType="VARCHAR" />
+        <result column="app_name_cn" property="appNameCN" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="queryAll" resultMap="appDomain">
+		SELECT * FROM t_qdp_application
+	</select>
+
+    <select id="queryBySystemName" resultMap="appDomain"> <!-- Noncompliant -->
+		SELECT * FROM t_qdp_application WHERE sys_name=${systemName}
+	</select>
+
+    <select id="queryByAppName" resultMap="appDomain"> <!-- Noncompliant -->
+		SELECT * FROM t_qdp_application WHERE app_name=${appName}
+	</select>
+
+    <select id="query" resultMap="appDomain" parameterType="com.jd.qdp.domain.QdpApplication">
+        SELECT * FROM t_qdp_application
+        <where>
+            <if test="#{appName}!=null">
+                AND app_name=#{appName}
+            </if>
+        </where>
+    </select>
+    <update id="changStatus" parameterType="com.jd.qdp.domain.BugDetails" > <!-- Noncompliant -->
+        UPDATE t_qdp_bug_details
+        <set>
+            <if test ="bugStatus != null">
+                bug_status=#{bugStatus},
+            </if>
+            <if test="causeBy != null">
+                causeBy=#{causeBy},
+            </if>
+            <if test="resolveTime != null">
+                resolve_time=#{resolveTime},
+            </if>
+            <if test ="solution != null">
+                solution=#{solution},
+                u_time=#{uTime}
+            </if>
+        </set>
+        WHERE id=${id};
+    </update>
+
+    <delete id="queryByAppName"> <!-- Noncompliant -->
+		DELETE * FROM t_qdp_application WHERE app_name=${appName}
+	</delete>
+
+
+    <update id="updateBatch" parameterType="List" >
+        <if test="list.size() == 0">select 1</if><if test="list.size() > 0"><foreach collection="list" item="item" index="index" open="" close="" separator=";">
+        update complement_column
+        <set >
+            complement_task_detail_id = #{item.complementTaskDetailId,jdbcType=BIGINT},
+            interface_info_id = #{item.interfaceInfoId,jdbcType=BIGINT},
+            interface_result_column_id = #{item.interfaceResultColumnId,jdbcType=BIGINT},
+            dimension_id = #{item.dimensionId,jdbcType=BIGINT},
+            extraction_code = #{item.extractionCode,jdbcType=VARCHAR},
+            output_name = #{item.outputName,jdbcType=VARCHAR},
+            remark = #{item.remark,jdbcType=VARCHAR},
+            yn = #{item.yn,jdbcType=TINYINT,typeHandler=com.jd.risk.gen.common.enums.YnEnum$TypeHandler},
+            create_time = #{item.createTime,jdbcType=TIMESTAMP},
+            create_user = #{item.createUser,jdbcType=VARCHAR},
+            modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+            modify_user = #{item.modifyUser,jdbcType=VARCHAR},
+        </set>
+        where id = #{item.id,jdbcType=BIGINT}
+    </foreach></if>
+    </update>
+
+    <update id="updateCpdDepositTransferIncomeWhenFailed" parameterType="java.util.HashMap">
+        UPDATE fss_ad_ads_fee${table_no}
+        SET
+            deposit_transfer_apply = deposit_transfer_apply - #{transferAmount,jdbcType=DECIMAL},
+            update_time = now()
+        WHERE
+            contract_no = #{contract_no, jdbcType=VARCHAR}
+            AND parta_no = #{parta_no,jdbcType=VARCHAR}
+            AND parta_name = #{parta_name,jdbcType=VARCHAR}
+            AND deposit_charged_amount = #{transferAmount,jdbcType=DECIMAL}
+            AND deposit_transfer_apply = #{transferAmount,jdbcType=DECIMAL}
+            AND is_valid = 1
+    </update>
+
+    <!--根据参数获取文件分片哈希列表-->
+    <select id= "getFilePartHashListByParams" parameterType="map" resultType="FilePartHash">
+        SELECT
+        t.id id,
+        t.fileUuid fileUuid,
+        t.hexHashValue hexHashValue,
+        t.start start,
+        t.end end,
+        t.size size,
+        t.sortNum sortNum,
+        t.uploadTimes uploadTimes,
+        t.remark remark,
+        t.creationTime creationTime,
+        t.updateTime updateTime,
+        t.deleteTime deleteTime,
+        t.yn yn
+        FROM jd_disk_file_part_hash t
+        WHERE t.yn=1
+        <if test="id != null">and t.id = #{id}</if>
+        <if test="fileUuid != null and !fileUuid.isEmpty()">and t.fileUuid = #{fileUuid}</if>
+        <if test="hexHashValue != null and !hexHashValue.isEmpty()">and t.hexHashValue = #{hexHashValue}</if>
+        <if test="start != null">and t.start = #{start}</if>
+        <if test="end != null">and t.end = #{end}</if>
+        <if test="size != null">and t.size = #{size}</if>
+        <if test="sortNum != null">and t.sortNum = #{sortNum}</if>
+        <if test="uploadTimes != null">and t.uploadTimes = #{uploadTimes}</if>
+        <if test="remark != null and !remark.isEmpty()">and t.remark = #{remark}</if>
+        <if test="creationTime != null">and t.creationTime = #{creationTime}</if>
+        <if test="updateTime != null">and t.updateTime = #{updateTime}</if>
+        <if test="deleteTime != null">and t.deleteTime = #{deleteTime}</if>
+        <if test="yn != null">and t.yn = #{yn}</if>
+        ORDER BY
+        <if test="sortColumn != null and !sortColumn.isEmpty()">${sortColumn}</if>
+        <if test="sortColumn == null or sortColumn.isEmpty()">t.creationTime</if>
+        <if test="sortType != null and !sortType.isEmpty()">${sortType}</if>
+        <if test="sortType == null or sortType.isEmpty()">DESC</if>
+        <if test="pageStart!= null and pageSize!= null">
+            LIMIT ${pageStart},${pageSize}</if>
+    </select>
+
+    <update id= "moveResourceInfoToTrashByUuid" parameterType="ResourceInfo">
+		UPDATE ${tableName} set
+				status= 2,
+				delMode=#{delMode},
+				delSerialUuid=#{delSerialUuid},
+				updateTime= #{updateTime}
+		WHERE yn=1 and status = 1 and uuid=#{uuid}
+	</update>
+
+    <delete id="deleteBatchByMinMax" parameterType="java.util.Map">
+        delete from cw_kcmxr_${tableSuffix} where id <![CDATA[>=]]>#{startId} and id <![CDATA[<=]]>#{endId}
+    </delete>
+
+    <select id="findRecPayableLimit" parameterType="java.util.Map" resultMap="RM_VendorPayable">
+        select
+        <include refid="columns"/>
+        from vendor_payable
+        where status in (0,1) and
+        reftype not in
+        <foreach open="(" close=")" separator="," collection="reftypeList" item="item">
+            #{item}
+        </foreach>
+        and subsupplierId=#{supplierid}
+        and isAccountDay = 0
+        limit ${limit}
+    </select>
+
+    <select id="list" resultMap="AppointmentRecordResultMap"> <!-- Noncompliant -->
+        select
+        ar.*,
+        rs.in_time, rs.out_time, rs.breach_status, rs.signInType,rs.signOutType,rs.status
+        from appointment_record ar
+        left join cav_record_status rs on ar.id=rs.id
+        where
+        ar.yn=1 and ar.status=1
+        <if test="userCode != null and userCode != ''" >
+            and user_code = #{userCode}
+        </if>
+        <if test="userName != null and userName != ''" >
+            and user_name = #{userName}
+        </if>
+        <if test="userRealname != null and userRealname != ''" >
+            and user_realname = #{userRealname}
+        </if>
+        <if test="status != null" >
+            and ar.status = #{status}
+        </if>
+        <if test="signStatus != null">
+            and rs.status = #{signStatus}
+        </if>
+        <if test="startTime != null and startTime!= ''" >
+            <![CDATA[ and start_time >= #{startTime} ]]>
+        </if>
+        <if test="endTime != null and endTime != ''" >
+            <![CDATA[ and end_time <= #{endTime} ]]>
+        </if>
+        <if test="applicationId != null">
+            and application_id = #{applicationId}
+        </if>
+        <if test="applicationIdList != null and applicationIdList.size != 0 ">
+            and application_id in
+            <foreach collection="applicationIdList" index="index" item="item" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="categoryId != null">
+            and category_id = #{categoryId}
+        </if>
+        <if test="categoryIdList != null and categoryIdList.size != 0">
+            and category_id in
+            <foreach collection="categoryIdList" index="index" item="item" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="locationId != null">
+            and location_id = #{locationId}
+        </if>
+        <if test="locationIdList != null and locationIdList.size != 0">
+            and location_id in
+            <foreach collection="locationIdList" index="index" item="item" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="locationDetail != null and locationDetail != '' ">
+            and location_detail = #{locationDetail}
+        </if>
+        <if test="locationDetailList != null and locationDetailList.size != 0">
+            and location_detail in
+            <foreach collection="locationDetailList" index="index" item="item" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="dayTime != null">
+            and day_time = #{dayTime}
+        </if>
+        <if test="period != null" >
+            and period = #{period}
+        </if>
+        <if test="type != null" >
+            and type = #{type}
+        </if>
+        <if test="cavTime != null" >
+            <![CDATA[ and cav_start_time <= #{cavTime} and #{cavTime} <= cav_end_time ]]>
+        </if>
+        <if test="recordTime != null" >
+            <![CDATA[ and start_time <= #{recordTime} and #{recordTime} <= end_time ]]>
+        </if>
+        <if test="appointmentResourceList != null and appointmentResourceList.size != 0">
+            and <foreach collection="appointmentResourceList" open="(" index="index" item="resource" separator="or " close=")">
+            (  application_id = #{appointmentResourceList[${index}].applicationId}
+            and category_id = #{appointmentResourceList[${index}].categoryId}
+            and location_id = #{appointmentResourceList[${index}].locationId}
+            and location_detail = #{appointmentResourceList[${index}].locationDetail})
+        </foreach>
+        </if>
+        <if test="recordIdList != null and recordIdList.size != 0">
+            and ar.id in
+            <foreach collection="recordIdList" index="index" item="item" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="bizIdList != null and bizIdList.size != 0">
+            and biz_id in
+            <foreach collection="bizIdList" index="index" item="item" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="resourceId != null">
+            and resourceId = #{resourceId}
+        </if>
+        order by ar.id desc
+    </select>
+
+    <select id="getUserCurrentResourceTime" resultMap="BaseResultMap"> <!-- Noncompliant -->
+        select	<include refid="Base_Column_List" />
+        from appointment_resource_time
+        where
+        1=1
+        <if test="appointmentResourceList != null and appointmentResourceList.size != 0">
+            and <foreach collection="appointmentResourceList" open="(" index="index" item="resource" separator="or " close=")">
+            (  application_id = #{appointmentResourceList[${index}].applicationId}
+            and category_id = #{appointmentResourceList[${index}].categoryId}
+            and location_id = #{appointmentResourceList[${index}].locationId}
+            and location_detail = #{appointmentResourceList[${index}].locationDetail})
+        </foreach>
+        </if>
+        and day_time = #{dayTime}
+        and #{hourMiniteTime} > start_time  and end_time > #{hourMiniteTime};
+    </select>
+
+    <select id="getZaiTu_query" parameterType="map" resultType="FsTransit">  <!-- Noncompliant -->
+        SELECT
+        s.id, s.billingOrg, s.contractsOrg, s.settlementId, s.amount, s.createTime, s.arType
+        FROM
+        FS_Transit s
+        <where>
+            1 = 1
+            <if test="id != null and id !=''">
+                and s.id = ${id}
+            </if>
+            <if test="dateBegin != null and dateBegin !=''">
+                and s.createTime >= #{dateBegin}
+            </if>
+            <if test="dateEnd != null and dateEnd !=''">
+                and s.createTime &lt; DATE_FORMAT(DATE_ADD(#{dateEnd},INTERVAL 1 DAY),'%Y-%m-%d')
+            </if>
+            <if test="billingOrg != null and billingOrg !=''">
+                and s.billingOrg = #{billingOrg}
+            </if>
+            <if test="contractsOrg != null and contractsOrg !=''">
+                and s.contractsOrg = #{contractsOrg}
+            </if>
+            <if test="settlementId != null and settlementId !=''">
+                and s.settlementId = #{settlementId}
+            </if>
+            <if test="amount != null">
+                and s.amount = #{amount}
+            </if>
+        </where>
+        ORDER BY s.id
+    </select>
+</mapper>

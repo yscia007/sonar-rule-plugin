@@ -1,0 +1,28 @@
+<p>避免使用Apache Beanutils类的方法去拷贝属性</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+  import org.apache.commons.beanutils.BeanUtils;
+
+import java.lang.reflect.InvocationTargetException;
+
+public class AvoidApacheBeanUtilsCopyRule {
+    public void test(Object a, Object b) throws IllegalAccessException, InvocationTargetException {
+        BeanUtils.copyProperties(a, b);           // Noncompliant
+    }
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+  import java.lang.reflect.InvocationTargetException;
+import org.springframework.beans.BeanUtils;
+public class MyTest {
+    public void test(Object a, Object b) throws IllegalAccessException, InvocationTargetException {
+        BeanUtils.copyProperties(a, b);
+    }
+}
+</code>
+</pre>

@@ -1,0 +1,33 @@
+<p>循环语句中尽量减少对变量的重复计算，例如循环条件中List类型size的重复计算</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+    class A {
+        public void f1() {
+            List list = new ArrayList();
+            for (int i = 0; i < list.size(); i++) {  // Noncompliant
+                for (int j = 0; j < list.size(); j++) { // Noncompliant
+
+                }
+            }
+            do{}while (w < list.size()); // Noncompliant
+            while (w < list.size()){} // Noncompliant
+        }
+    }
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+    <code>
+    class A {
+        public void f1() {
+            List list = new ArrayList();
+            int length = list.size();
+            for (int i = 0; i < length; i++) {}
+            do{}while (w < length);
+            while (w < length){}
+        }
+    }
+    </code>
+</pre>

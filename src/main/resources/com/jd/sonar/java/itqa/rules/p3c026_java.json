@@ -1,0 +1,16 @@
+{
+  "title": "Avoid use Timer",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-p3c026",
+  "sqKey": "p3c026",
+  "scope": "All"
+}

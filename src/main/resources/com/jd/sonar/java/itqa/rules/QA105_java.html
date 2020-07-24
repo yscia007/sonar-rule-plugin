@@ -1,0 +1,14 @@
+<p>尽量避免在代码中使用递归函数，递归层级太深会占用更多内存，容易产生栈内存溢出。</p>
+
+<h2>错误示例</h2>
+
+<pre>
+  <code>
+    public int func(int i) {
+        if (i == 1) {
+            return 2;
+        }
+        return func(i -1) * func(i + 1); // Noncompliant
+    }
+  </code>
+</pre>

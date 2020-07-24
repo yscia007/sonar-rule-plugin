@@ -1,0 +1,16 @@
+{
+  "title": "Avoid using 'l' within long or Long variable assignment.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "constant", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-019",
+  "sqKey": "p3c019",
+  "scope": "All"
+}

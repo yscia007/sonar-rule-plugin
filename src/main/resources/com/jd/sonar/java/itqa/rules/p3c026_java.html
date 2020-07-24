@@ -1,0 +1,21 @@
+<p>多线程并行处理定时任务时，Timer 运行多个 TimeTask 时，只要其中之一没有捕获 抛出的异常，其它任务便会自动终止运行，使用 ScheduledExecutorService 则没有这个问题。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+    public class TimerTest {
+    private Timer timer = new Timer();
+
+    public void test(){
+        Timer t = new Timer();
+        new Timer();
+    }
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+    <code>
+
+    </code>
+</pre>

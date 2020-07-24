@@ -1,0 +1,16 @@
+{
+  "title": "Avoid creating thread manually.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-p3c001",
+  "sqKey": "p3c001",
+  "scope": "All"
+}

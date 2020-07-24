@@ -1,0 +1,16 @@
+{
+  "title": "Avoid computing size repeatedly in loop condition expression.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "performance", "itqa"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-106",
+  "sqKey": "QA106",
+  "scope": "All"
+}

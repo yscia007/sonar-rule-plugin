@@ -1,0 +1,32 @@
+<p>注意 Math.random() 这个方法返回是 double 类型，注意取值的范围 0≤x<1（能够取到零值，注意除零异常），</p>
+<p>如果想获取整数类型的随机数，不要将 x 放大 10 的若干倍然后取整，直接使用 Random 对象的 nextInt 或者 nextLong 方法。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+        public class Test {
+            public static void main( String args[] ){
+                int i = (int)(Math.random() * 10);   // Noncompliant
+                System.out.println("Next int value: " + i);
+
+                long j = (long)(Math.random() * 250);   // Noncompliant
+                System.out.println("Next long value: " + j);
+            }
+        }
+  </code>
+</pre>
+
+<h2>正确示例</h2>
+<pre>
+    <code>
+        import java.util.Random;
+        public class Test {
+            public static void main( String args[] ){
+                double d = Math.random() * 10;
+
+                Random random = new Random();
+                int k = random.nextInt();
+            }
+        }
+    </code>
+</pre>

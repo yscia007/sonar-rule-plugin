@@ -1,0 +1,16 @@
+{
+  "title": "Rollback is necessary for transactional scenario.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "exception", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-p3c041",
+  "sqKey": "p3c041",
+  "scope": "All"
+}

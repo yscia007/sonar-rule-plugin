@@ -1,0 +1,26 @@
+<p>代码中的命名均不能以下划线或美元符号开始，也不能以下划线或美元符号结束。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+      public class Foo {
+    private String $1;
+    private String _1;
+    private String ee$;
+    private String ee_;
+    public void $sayHello(){}
+    public void _sayHello(){}
+    public void sayHello$(){}
+    public void sayHello_(){}
+}
+  </code>
+     <p style="color: red">代码中有8处违规，违规行：2,3,4,5,6,7,8,9。</p>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>public class AvoidStartWithDollarAndUnderLineNamingRuleTest {
+    private String s;
+    public void sayHello(){}
+}
+</code>
+</pre>

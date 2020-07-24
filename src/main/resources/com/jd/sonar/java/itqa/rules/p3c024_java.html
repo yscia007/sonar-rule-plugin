@@ -1,0 +1,29 @@
+<p>创建线程或线程池时请指定有意义的线程名称，方便出错时回溯</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+     public class TestScheduledExecutorService {
+    public static final ScheduledExecutorService EXECUTOR_SERVICE = new ScheduledThreadPoolExecutor(3);
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+    <code>
+public class ThreadNameTest implements ThreadFactory{
+
+    private void test(){
+        new ThreadPoolExecutor(10, 10, 100, TimeUnit.MILLISECONDS, new SynchronousQueue&ltRunnable>(),r -> {
+            Thread thread1 = new Thread();
+            thread1.setName("xxx");
+            return thread1;
+        });
+
+    @Override
+    public Thread newThread(Runnable r) {
+        return null;
+    }
+}
+    </code>
+</pre>

@@ -1,0 +1,16 @@
+{
+  "title": "ThreadLocal should invoke 'remove' method finally.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-p3c023",
+  "sqKey": "p3c023",
+  "scope": "All"
+}

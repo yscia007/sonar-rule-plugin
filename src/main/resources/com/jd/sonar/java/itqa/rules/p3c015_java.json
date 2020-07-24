@@ -1,0 +1,16 @@
+{
+  "title": "Count down method should be invoked in finally.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-015",
+  "sqKey": "p3c015",
+  "scope": "All"
+}

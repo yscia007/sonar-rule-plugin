@@ -1,0 +1,16 @@
+{
+  "title": "Brace is necessary for if/else/for/do/while statements",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "flowcontrol", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-017",
+  "sqKey": "p3c017",
+  "scope": "All"
+}

@@ -1,0 +1,99 @@
+<p>在一个 switch 块内，每个 case 要么通过 break/return 等来终止，要么注释说明程序将继续执行到哪一个 case 为止；在一个 switch 块内，都必须包含一个 default 语句并且 放在最后，即使它什么代码也没有。</p>
+<h2>错误示例</h2>
+<pre>
+  <code>
+  public class Example {
+    public void fn() {
+        int i;
+        switch (i) {   // Noncompliant
+            case 0:
+                break;
+            case 1:
+                int j;
+                switch (j) {
+                    case 0:
+                        break;
+                    default:    // nested switch has default blocks
+                        return;
+                }
+                break;
+            // missing default statement
+        }
+    }
+}
+
+
+public class Foo {
+    public void bar() {
+        int i;
+        switch (i) {
+            case 0:
+                break;
+            case 1:
+                int j;
+                switch (j) {  // Noncompliant
+                    case 0:
+                        break;
+                    // nested switch has no default block
+                }
+                break;
+            default:
+                return;
+        }
+    }
+}
+
+
+public class Foo {
+    public void bar() {
+        int i;
+        switch (i) {    // Noncompliant
+            case 0:
+                int j =1;
+                // missing break,return and continue
+            case 1:
+                break;
+            case 2:
+                continue;
+            case 3:        // OK
+            default:
+                int k = 1;
+                return;
+        }
+    }
+}
+      public class Foo {
+    public void bar() {
+        int i;
+        switch (i) {     // Noncompliant
+            case 0:
+            case 1:
+            case 2:
+                // do something
+                break;
+        }
+    }
+}
+
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+public class Foo {
+    public void bar() {
+        int i;
+        switch (i) {
+            case 0:
+                int j =1;
+                break;
+            case 1:
+            case 2:
+                continue;
+            default:     // OK
+        }
+    }
+}
+
+</code>
+</pre>

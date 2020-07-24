@@ -1,0 +1,16 @@
+{
+  "title": "Standards for the use of basic and wrapped data types.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-038",
+  "sqKey": "p3c038",
+  "scope": "All"
+}

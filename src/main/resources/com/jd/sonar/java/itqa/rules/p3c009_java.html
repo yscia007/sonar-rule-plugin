@@ -1,0 +1,27 @@
+<p>集合初始化时，指定集合初始值大小。</p>
+<p><strong>说明:HashMap使用HashMap(int initialCapacity) 初始化。</strong></p>
+<p>正例:initialCapacity = (需要存储的元素个数 / 负载因子) + 1。注意负载因子(即 loader factor)默认为 0.75，如果暂时无法确定初始值大小，请设置为 16(即默认值)。</p>
+<p>反例:HashMap 需要放置 1024 个元素，由于没有设置容量初始大小，随着元素不断增加，容 量 7 次被迫扩大，resize 需要重建 hash 表，严重影响性能。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>  public class Foo {
+           private void method1() {
+		       Map&lt;String,  String&gt; map = new HashMap&lt;String,  String&gt;();     // Noncompliant
+		       Map&lt;String,  String&gt; map3 = new ConcurrentHashMap&lt;String,  String&gt;(); // Noncompliant
+           }
+      }
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>    public class Foo {
+	    	Map&lt;String,  String&gt; map = new HashMap&lt;String,  String&gt;(16);
+            private void method(long aLong) {
+               Map&lt;String,  String&gt; map2 = new HashMap&lt;String,  String&gt;(16);
+               Map&lt;String,  String&gt; map3 = new ConcurrentHashMap&lt;String,  String&gt;(16);
+               List&lt;String&gt; originList = new ArrayList&lt;String&gt;(2048);
+            }
+        }
+</code>
+</pre>

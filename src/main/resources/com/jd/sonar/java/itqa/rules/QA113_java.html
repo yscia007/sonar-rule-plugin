@@ -1,0 +1,13 @@
+<p>避免在maven 项目中引入一些存在已知高危漏洞的第三方组件，引入第三方组件前应确认当前组件使用的版本是否存在已知漏洞。</p>
+<p>对于存在已知漏洞的引入组件，应确认项目中是否使用了该组件，如若使用应升级组件版本至安全版本。</p>
+<h2>错误示例</h2>
+<p>例如fastjson 1.2.25版本存在高危漏洞，禁止在项目中使用该版本的fastjson组件。</p>
+<pre>
+<code>
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+        &lt;artifactId&gt;fastjson&lt;/artifactId&gt;
+        &lt;version&gt;1.2.25&lt;/version&gt;
+    &lt;/dependency&gt;
+</code>
+</pre>

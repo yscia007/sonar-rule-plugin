@@ -1,0 +1,33 @@
+<p>接口和实现类的命名有两套规则：</p>
+<p>1）【强制】对于 Service 和 DAO 类，基于 SOA 的理念，暴露出来的服务一定是接口，内部的实现类用 Impl 的后缀与接口区别。</p>
+<p>正例：CacheServiceImpl 实现 CacheService 接口。</p>
+<p>2）【推荐】如果是形容能力的接口名称，取对应的形容词做接口名（通常是–able 的形式）。</p>
+<p>正例：AbstractTranslator 实现 Translatable。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+      public class ServiceNameRuleTest implements TestDAO{         // Noncompliant
+    class ServiceNameRuleTest1 implements TestService{       // Noncompliant
+
+    }
+    class ServiceNameRuleTest2Impl implements TestService{
+
+    }
+    class ServiceNameRuleTest3Impl implements TestDAO{
+
+    }
+}
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+public class ServiceNameRuleTestImpl implements TestDAO{
+
+}
+public abstract class ServiceNameRuleTest implements TestDAO{
+
+}
+</code>
+</pre>

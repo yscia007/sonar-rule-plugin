@@ -1,0 +1,51 @@
+<p>线程池不允许使用 Executors 去创建，而是通过 ThreadPoolExecutor 的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。</p>
+<p><strong>说明:Executors 返回的线程池对象的弊端如下:</strong></p>
+<p>&nbsp&nbsp1) FixedThreadPool 和 SingleThreadPool:</p>
+<p>允许的请求队列长度为 Integer.MAX_VALUE，可能会堆积大量的请求，从而导致 OOM。</p>
+<p>&nbsp&nbsp2) CachedThreadPool 和 ScheduledThreadPool:</p>
+<p>允许的创建线程数量为 Integer.MAX_VALUE，可能会创建大量的线程，从而导致 OOM。</p>
+
+</p>
+<h2>错误示例</h2>
+<pre>
+  <code>  private ExecutorService executorService = Executors.newSingleThreadExecutor();</code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<p><strong>正确示例 1：</strong></p>
+<code>//org.apache.commons.lang3.concurrent.BasicThreadFactory
+    ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
+        new BasicThreadFactory.Builder().namingPattern("example-schedule-pool-%d").daemon(true).build());
+</code>
+</pre>
+<pre>
+<p><strong>正确示例 2：</strong></p>
+<code>    ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
+          .setNameFormat("demo-pool-%d").build();
+
+    //Common Thread Pool
+    ExecutorService pool = new ThreadPoolExecutor(5, 200,
+        0L, TimeUnit.MILLISECONDS,
+        new LinkedBlockingQueue&ltRunnable&gt(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+
+    pool.execute(()-> System.out.println(Thread.currentThread().getName()));
+    pool.shutdown();//gracefully shutdown
+</code>
+</pre>
+<pre>
+<p><strong>正确示例 3：</strong></p>
+<code>&ltbean id="userThreadPool"
+        class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"&gt
+        &ltproperty name="corePoolSize" value="10" /&gt
+        &ltproperty name="maxPoolSize" value="100" /&gt
+        &ltproperty name="queueCapacity" value="2000" /&gt
+
+    &ltproperty name="threadFactory" value= threadFactory /&gt
+        &ltproperty name="rejectedExecutionHandler"&gt
+            &ltref local="rejectedExecutionHandler" /&gt
+        &lt/ltproperty&gt
+    &lt/bean&gt
+    //in code
+    userThreadPool.execute(thread);
+</code>
+</pre>

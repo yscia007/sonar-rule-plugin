@@ -1,0 +1,14 @@
+<p>在表查询中，一律不要使用 * 作为查询的字段列表，需要哪些字段必须明确写明。 </p>
+<p>说明：1）增加查询分析器解析成本。2）增减字段容易与resultMap配置不一致。</p>
+<h2>错误示例</h2>
+<pre>
+    <code>
+    SELECT * FROM table WHERE name=#{name}
+    </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+    <code>
+    SELECT name, age, sex FROM table WHERE name=#{name}
+    </code>
+</pre>

@@ -1,0 +1,9 @@
+<p>禁止在mybatis mappper文件中直接使用${sql}的形式传递动态sql,这样的缺陷一旦被攻击者找到，将直接导致任意sql执行漏洞。 </p>
+<h2>错误示例</h2>
+<pre>
+    <code>
+        &ltselect id="sql" resultMap="appDomain">
+            ${sql}        // Noncompliant
+    &lt/select>
+    </code>
+</pre>

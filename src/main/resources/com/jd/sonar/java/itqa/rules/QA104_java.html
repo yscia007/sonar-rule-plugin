@@ -1,0 +1,15 @@
+<p>避免在代码中使用System.gc()方法手动进行垃圾回收，垃圾回收是自动进行的，无需手工触发，频繁调用gc会对系统性能产生影响</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+   package com.jd.sonar.test.file;
+   public class AvoidUseSystemGcCheck {
+        private void f() {
+             System.gc();            // Noncompliant
+
+             Runtime.getRuntime().gc();   // Noncompliant
+        }
+   }
+  </code>
+</pre>

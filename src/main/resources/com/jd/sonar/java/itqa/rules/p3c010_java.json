@@ -1,0 +1,16 @@
+{
+  "title": "The brackets are part of the array type, which is defined as follows: String[] args;",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "set", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Info",
+  "ruleSpecification": "RSPEC-p3c010",
+  "sqKey": "p3c010",
+  "scope": "All"
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Avoid Random instances being used by multiple threads.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-027",
+  "sqKey": "p3c027",
+  "scope": "All"
+}

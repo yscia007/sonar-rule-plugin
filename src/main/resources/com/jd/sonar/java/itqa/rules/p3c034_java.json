@@ -1,0 +1,16 @@
+{
+  "title": "Naming rule for interface and implementation class.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "naming", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-034",
+  "sqKey": "p3c034",
+  "scope": "All"
+}

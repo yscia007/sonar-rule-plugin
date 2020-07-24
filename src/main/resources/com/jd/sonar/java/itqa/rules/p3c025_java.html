@@ -1,0 +1,15 @@
+<p>SimpleDateFormat 是线程不安全的类，一般不要定义为 static 变量，如果定义为static，必须加锁，或者使用 DateUtils 工具类。</p>
+<p>说明：如果是 JDK8 的应用，可以使用 Instant 代替 Date，LocalDateTime 代替 Calendar， DateTimeFormatter 代替 SimpleDateFormat，</p>
+<p>官方给出的解释：simple beautiful strong immutable thread-safe。</p>
+
+<h2>正确示例</h2>
+<pre>
+    <code>
+    private static final ThreadLocal&ltDateFormat> df = new ThreadLocal&ltDateFormat>() {
+        @Override
+        protected DateFormat initialValue() {
+        return new SimpleDateFormat("yyyy-MM-dd");
+        }
+    };
+    </code>
+</pre>

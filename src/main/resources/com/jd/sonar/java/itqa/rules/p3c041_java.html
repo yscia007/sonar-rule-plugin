@@ -1,0 +1,51 @@
+<p>当方法抛异常时确保调用事务回滚，回滚应基于代码逻辑的上下文</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+    public class TestTransactional {
+        private ResourceTransactionManager manager;
+
+        @Transactional                         // Noncompliant
+        public void test(){
+
+        }
+    </code>
+</pre>
+<pre>
+    <code>
+        @Transactional                        // Noncompliant
+        public class TestTransactional {
+            private ResourceTransactionManager manager;
+
+            public void test(){
+                //manager.rollback(new SimpleTransactionStatus());
+            }
+        }
+    </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+    <code>
+        @Transactional(rollbackFor = Exception.class)
+        public class TestTransactional {
+            private ResourceTransactionManager manager;
+
+            public void test(){
+                //manager.rollback(new SimpleTransactionStatus());
+            }
+        }
+    </code>
+</pre>
+<pre>
+    <code>
+        public class TestTransactional {
+            private ResourceTransactionManager manager;
+
+            @Transactional
+            public void test(){
+                manager.rollback(new SimpleTransactionStatus());
+            }
+        }
+    </code>
+</pre>

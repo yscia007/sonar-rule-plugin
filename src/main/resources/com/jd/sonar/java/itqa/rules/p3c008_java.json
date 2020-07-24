@@ -1,0 +1,16 @@
+{
+  "title": "Package should be named in lowercase characters.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "naming", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-008",
+  "sqKey": "p3c008",
+  "scope": "All"
+}

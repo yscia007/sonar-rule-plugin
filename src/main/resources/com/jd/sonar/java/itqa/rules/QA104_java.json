@@ -1,0 +1,16 @@
+{
+  "title": "Avoid manual garbage collection.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "performance", "itqa"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-104",
+  "sqKey": "QA104",
+  "scope": "All"
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jd.qdp.qdp_dao.AppMapper">
+    <resultMap id="appDomain" type="com.jd.qdp.domain.QdpApplication">
+        <result column="app_name" property="appName" jdbcType="VARCHAR" />
+        <result column="app_name_cn" property="appNameCN" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="queryAll" resultMap="appDomain">
+		SELECT * FROM t_qdp_application
+	</select>
+
+    <select id="queryBySystemName" resultMap="appDomain">
+		SELECT * FROM t_qdp_application WHERE sys_name=#{systemName}
+	</select>
+
+    <select id="queryByAppName" resultMap="appDomain">
+		SELECT * FROM t_qdp_application WHERE app_name=#{appName}
+	</select>
+
+    <select id="query" resultMap="appDomain" parameterType="com.jd.qdp.domain.QdpApplication">
+        SELECT * FROM t_qdp_application
+        <where>
+            <if test="#{appName}!=null">
+                AND app_name=#{appName}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

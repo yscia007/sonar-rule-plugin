@@ -1,0 +1,16 @@
+{
+  "title": "Variables of Boolean type in POJO class, do not add is, otherwise partial framework resolution will cause serialization error.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-033",
+  "sqKey": "p3c033",
+  "scope": "All"
+}

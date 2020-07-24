@@ -1,0 +1,15 @@
+<p>Don't pass collection as parameter to itself.</p>
+<p>不要把集合对象传给自己:由于某些方法要求参数在执行期间保持不变，因此将集合传递给自身可能会导致异常行为</p>
+<p>暂时只处理arrayList(containsAll & removeall)，其他集合类型待观察</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  <code>
+    List<String> list =new ArrayList<>;
+    list.add("Hello");
+    list.add("World");
+    if(list.containsAll(list)){ // 无意义,总是返回true
+        ...
+    }
+    list.removeAll(list); // 性能差, 直接使用clear
+  </code>
+</pre>

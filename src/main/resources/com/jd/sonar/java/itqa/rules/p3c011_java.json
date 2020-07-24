@@ -1,0 +1,16 @@
+{
+  "title": "Avoid invoking 'copyProperties' method of Apache Beanutils class.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "other", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-p3c011",
+  "sqKey": "p3c011",
+  "scope": "All"
+}

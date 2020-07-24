@@ -1,0 +1,25 @@
+<p>包名统一使用小写，点分隔符之间有且仅有一个自然语义的英语单词。包名统一使用单数形式，但是类名如果有复数含义，类名可以使用复数形式。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+   package PACKAGE3d;          // Noncompliant
+    class BadPackageName {
+        }
+      package PACKAGE;          // Noncompliant
+    class BadPackageName {
+        }
+      package com.taobao.tddl.domain.dtA;     // Noncompliant
+     class BadQualifiedIdentifierPackageName {
+       }
+  </code>
+</pre>
+<h2>正确示例</h2>
+<p>正例： 应用工具类包名为 com.alibaba.open.util、类名为 MessageUtils（此规则参考spring 的框架结构）</p>
+<pre>
+<code>
+    package com.taobao.tddl.domain.dt;
+     class BadQualifiedIdentifierPackageName {
+       }
+</code>
+</pre>

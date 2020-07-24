@@ -1,0 +1,16 @@
+{
+  "title": "The wrapper type should be compared by 'equals' method rather than '==' directly.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "oop", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-p3c037",
+  "sqKey": "p3c037",
+  "scope": "All"
+}

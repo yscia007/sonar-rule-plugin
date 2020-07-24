@@ -1,0 +1,17 @@
+<p>Escape characters in split should be paid special attention.</p>
+<p>小心String.split(String regex)</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+  <code>
+    "a.ab.abc".split(".");// 结果为[]
+    "a|ab|abc".split("|");// 结果为["a", "|", "a", "b", "|", "a", "b", "c"]
+  </code>
+</pre>
+<h2>compliant Code Example</h2>
+<pre>
+  <code>
+    "a.ab.abc".split("\\.");// 结果为["a", "ab", "abc"]
+    "a|ab|abc".split("\\|");// 结果为["a", "ab", "abc"]
+  </code>
+</pre>
+

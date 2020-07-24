@@ -1,0 +1,16 @@
+{
+  "title": "Thread should set name",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "concurrent", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-p3c024",
+  "sqKey": "p3c024",
+  "scope": "All"
+}

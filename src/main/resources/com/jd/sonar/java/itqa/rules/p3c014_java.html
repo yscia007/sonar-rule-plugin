@@ -1,0 +1,29 @@
+<p>在 subList 场景中，高度注意对原集合元素个数的修改，会导致子列表的遍历、增加、 删除均会产生ConcurrentModificationException 异常。</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+  public class Foo1 {
+    private void method(long aLong) {
+        List<String> originList = new ArrayList<String>();
+        originList.add("22");
+        List<String> subList = originList.subList(0, 1);
+        originList.add("22");      // Noncompliant
+        originList.remove("22");   // Noncompliant
+        originList.clear();        // Noncompliant
+    }
+ }
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+ public class Foo {
+    private void method() {
+        List<String> originList = new ArrayList<String>();
+        originList.add("22");
+        List<String> subList = originList.subList(0, 1);
+    }
+}
+</code>
+</pre>

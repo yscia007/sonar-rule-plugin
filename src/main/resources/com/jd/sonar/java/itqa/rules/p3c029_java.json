@@ -1,0 +1,16 @@
+{
+  "title": "Avoid use 'toArray' method without arguments",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "set", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-p3c029",
+  "sqKey": "p3c029",
+  "scope": "All"
+}

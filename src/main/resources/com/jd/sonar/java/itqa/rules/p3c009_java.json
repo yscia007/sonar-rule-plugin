@@ -1,0 +1,16 @@
+{
+  "title": "Set a size when initializing a collection if possible",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "set", "itqa", "p3c"
+  ],
+  "defaultSeverity": "Info",
+  "ruleSpecification": "RSPEC-p3c009",
+  "sqKey": "p3c009",
+  "scope": "All"
+}

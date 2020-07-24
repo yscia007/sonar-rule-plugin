@@ -1,0 +1,16 @@
+{
+  "title": "Extract jsf provider interface from spring config file.",
+  "type": "VULNERABILITY",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "jsf", "itqa"
+  ],
+  "defaultSeverity": "Info",
+  "ruleSpecification": "RSPEC-128",
+  "sqKey": "QA128",
+  "scope": "All"
+}

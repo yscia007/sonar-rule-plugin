@@ -1,0 +1,16 @@
+{
+  "title": "Track uses of wildcard sign in mybatis sql query.",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "sql", "itqa", "mybatis"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-123",
+  "sqKey": "QA123",
+  "scope": "All"
+}

@@ -1,0 +1,70 @@
+<p>在 Mybatis 框架下，sql语句参数操作全部用'#{}'的方式，禁止使用'${}'，此种方式容易产生sql注入漏洞。</p>
+<p>说明：MyBatis 在进行参数操作时支持#{参数}和 ${参数}两种形式，其中#{参数}为预编译方式，是安全的数据库操作方式，${参数}为拼接方式，容易导致SQL注入漏洞。</p>
+<p><strong>安全编码规范：</strong></p>
+<p>1）通常所有的 SQL 语句应使用预编译操作，禁止拼接 SQL 语句。 </p>
+<p>2）在明确变量数据类型时，进行变量数量类型检查，确保是预定变量类型。</p>
+<p>3）特殊情况下(一般指 order by、group by 等)，需要进行 SQL 拼接时，应在 Services 层对变量进行预定义转换，禁止将变量直接拼入 SQL 语句。</p>
+<h2>正确示例</h2>
+<pre>
+<code>
+    &lt;select id="normalSQL"&gt;
+    SELECT field_name FROM table_name WHERE 1 = 1
+    &lt;if test="condition != null"&gt;
+        AND field_name = #{condtion}
+    &lt;/if&gt;
+    &lt;/select&gt;
+</code>
+</pre>
+<pre>
+    <code>
+    &lt;select id="likeSQL">
+    SELECT field_name FROM table_name WHERE 1 = 1
+        &lt;if test="condition != null">
+    AND field_name like CONCAT(#{condition}, '%')
+        &lt;/if>
+    &lt;/select>
+    </code>
+    <code>
+    &lt;select id="inSQL">
+        SELECT field_name FROM table_name WHERE 1 = 1
+            &lt;if test="conditionArray != null">
+        field_name in
+        &lt;foreach collection="conditionArray" item="item" open="(" close=")" separator=",">
+            #{item}
+        &lt;/foreach>
+            &lt;/if>
+    &lt;/select>
+    </code>
+</pre>
+<pre>
+    <code>
+    // Java 代码
+    // 预先 order by 字段字典
+    Map fieldMap = new HashMap&lt;String, String>();
+    fieldMap .put("key1", "name");
+    fieldMap .put("key2", "date");
+    // 获取用户提交的字典值
+    String req_sortField = request.getParameter("sortField");
+    // 预定义默认排序字段
+    String sortField = "name";
+    // 从预定义的字段字典中获取相对应的值，若未获取到相对应值则使用默认字段 boolean result = fieldMap.containsKey(req_sortField);
+    if(result){
+        sortField = fieldMap.get(req_sortField).toString();
+    }
+    // 预定义默认排序规则
+    String sortBy = "asc";
+    String req_sortBy = request.getParameter("sortBy");
+    // 若用户提交排序规则不为 desc 或 asc 则使用默认排序规则
+    if(req_sortBy.equals("desc") || req_sortBy.equals("asc")){
+        sortBy = req_sortBy;
+    }
+
+    // Mybatis 配置文件
+    &lt;select id="sortSQL">
+        SELECT field_name FROM table_name WHERE 1 = 1
+        &lt;if test="sortField != null and sortBy != null">
+        ORDER BY ${sortField} ${sortBy}
+        &lt;/if>
+    &lt;/select>
+    </code>
+</pre>

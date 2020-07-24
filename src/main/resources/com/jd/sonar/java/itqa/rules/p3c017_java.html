@@ -1,0 +1,47 @@
+<p>在 if/else/for/while/do 语句中必须使用大括号。即使只有一行代码，避免采用单行的编码方式: if (condition) statements;</p>
+
+<h2>错误示例</h2>
+<pre>
+  <code>
+   class Example {
+        public void fn() {
+            int a;
+            int b;
+            if (a > 0)  b++;     // Noncompliant
+            }
+       }
+
+    class SD {
+        public void fn() {
+            int a = 2;
+            int b = 4;
+            if (a > 0) b++;			// Noncompliant
+            if (a > 0) {
+                b++;
+            } else if (a > -1) {
+                b++;
+            } else                  // Noncompliant
+                b--;
+            for (a = 0; a < 3; a ++) b--;	// Noncompliant
+            while (a > 3) a--;				// Noncompliant
+        }
+    }
+
+    class Aq {
+        public void fn() {
+            int a;
+            boolean flag;
+            if (a > 0) {
+                // do nothing
+            }
+            else                      // Noncompliant
+            flag = true;
+        }
+    }
+  </code>
+</pre>
+<h2>正确示例</h2>
+<pre>
+<code>
+</code>
+</pre>
